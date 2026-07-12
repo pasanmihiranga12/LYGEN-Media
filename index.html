@@ -42,17 +42,13 @@
   :focus-visible{ outline:2px solid var(--blue); outline-offset:3px; border-radius:4px; }
 
   .eyebrow{
-    display:inline-flex; align-items:center; gap:9px;
+    display:flex; flex-direction:column; align-items:flex-start; gap:8px;
     font-family:var(--font-accent);
-    font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    font-size:12px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
     color:var(--white);
-    padding:9px 18px; border-radius:100px;
-    background:rgba(10,14,30,0.32); border:1px solid rgba(255,255,255,0.28);
-    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-    box-shadow:0 10px 24px -14px rgba(0,0,0,0.4);
     margin-bottom:20px;
   }
-  .eyebrow::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--gradient); flex-shrink:0; }
+  .eyebrow::before{ content:''; width:34px; height:3px; border-radius:2px; background:var(--gradient); }
 
   .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.16,.8,.3,1); }
   .reveal.in-view{ opacity:1; transform:translateY(0); }
@@ -204,6 +200,7 @@
   .process-blob-1{ width:380px; height:380px; background:var(--blue); opacity:.25; bottom:-140px; right:-80px; }
   .process-blob-2{ width:260px; height:260px; background:#ffffff; opacity:.2; top:-90px; left:-60px; }
   .process .section-head p{ color:rgba(17,17,17,0.68); }
+  .process .eyebrow{ color:var(--ink); }
   .process-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; position:relative; z-index:1; }
   .step{
     position:relative; background:rgba(255,255,255,0.32); border:1px solid rgba(255,255,255,0.5);
@@ -221,6 +218,67 @@
   .step h3{ font-size:18.5px; font-weight:800; margin-bottom:8px; position:relative; z-index:1; }
   .step p{ font-size:14px; color:rgba(17,17,17,0.65); line-height:1.6; font-weight:500; position:relative; z-index:1; }
   .step-arrow{ display:none; position:absolute; top:38px; right:-30px; z-index:2; color:rgba(17,17,17,0.35); }
+
+  /* ================= FOUNDER (black, premium glass card) ================= */
+  .founder{ padding:130px 0; background:var(--black); color:var(--white); position:relative; overflow:hidden; }
+  .founder-blob{ position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; opacity:.25; }
+  .founder-blob-1{ width:440px; height:440px; background:var(--blue); top:-160px; right:-120px; }
+  .founder-blob-2{ width:340px; height:340px; background:var(--green); bottom:-140px; left:-100px; }
+
+  .founder-head{ text-align:center; max-width:600px; margin:0 auto 60px; position:relative; z-index:1; }
+  .founder-head .eyebrow{ align-items:center; }
+  .founder-head h2{ font-size:clamp(28px,4vw,42px); font-weight:800; line-height:1.15; letter-spacing:-.01em; }
+  .founder-head h2 em{ font-style:italic; font-weight:600; background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  .founder-card{
+    position:relative; z-index:1; max-width:420px; margin:0 auto; border-radius:26px; overflow:hidden;
+    aspect-ratio:3/4; background:linear-gradient(160deg, var(--green), var(--blue));
+    box-shadow:0 40px 80px -25px rgba(0,0,0,0.65);
+    transition:transform .45s cubic-bezier(.16,.8,.3,1), box-shadow .45s ease;
+  }
+  .founder-card:hover{ transform:translateY(-10px) scale(1.015); box-shadow:0 50px 90px -25px rgba(0,0,0,0.75); }
+  .founder-card-glow{
+    position:absolute; inset:-3px; border-radius:28px; z-index:-1;
+    background:var(--gradient); filter:blur(28px); opacity:.5;
+    animation:glowPulse 4s ease-in-out infinite;
+  }
+  @keyframes glowPulse{ 0%,100%{ opacity:.35; } 50%{ opacity:.6; } }
+  .founder-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .founder-photo-placeholder{
+    position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    color:var(--white); text-align:center; padding:30px;
+  }
+  .founder-photo-placeholder svg{ opacity:.9; }
+  .founder-photo-placeholder p{ font-family:var(--font-accent); font-size:14px; font-weight:600; opacity:.9; }
+  .founder-photo-placeholder span{ font-size:12px; opacity:.7; font-weight:500; max-width:220px; }
+
+  .founder-card-glass{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:24px 26px 22px;
+    background:rgba(10,14,26,0.55); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border-top:1px solid rgba(255,255,255,0.25);
+    transition:background .35s ease, padding-top .35s ease;
+  }
+  .quote-mark{
+    font-family:var(--font-accent); font-size:40px; line-height:1; font-weight:700;
+    background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;
+    opacity:.95; display:block; margin-bottom:2px;
+  }
+  .founder-quote{
+    font-size:14px; line-height:1.55; font-weight:500; color:rgba(255,255,255,0.88);
+    margin-bottom:14px;
+  }
+  .founder-divider{ width:36px; height:3px; border-radius:3px; background:var(--gradient); margin-bottom:12px; }
+  .founder-name{ font-family:var(--font-accent); font-size:18px; font-weight:700; }
+  .founder-title{ font-size:12px; color:rgba(255,255,255,0.6); font-weight:600; letter-spacing:.05em; text-transform:uppercase; margin-top:3px; }
+
+  /* On real hover-capable devices, tuck the quote away until hovered for a nicer reveal moment */
+  @media (hover:hover) and (pointer:fine){
+    .founder-card-glass{ background:rgba(10,14,26,0.4); padding-top:26px; }
+    .founder-card:hover .founder-card-glass{ background:rgba(10,14,26,0.62); padding-top:34px; }
+    .founder-quote{ max-height:0; opacity:0; overflow:hidden; margin-bottom:0; transition:max-height .4s ease, opacity .35s ease, margin-bottom .35s ease; }
+    .founder-card:hover .founder-quote{ max-height:160px; opacity:1; margin-bottom:14px; }
+  }
 
   /* ================= STATS (white bg, glass tiles) ================= */
   .stats{
@@ -248,7 +306,7 @@
   .pricing-blob-1{ width:420px; height:420px; top:-160px; left:-100px; }
   .pricing-blob-2{ width:320px; height:320px; bottom:-140px; right:-80px; }
   .section-head.center{ max-width:620px; margin:0 auto 56px; text-align:center; }
-  .section-head.center .eyebrow{ justify-content:center; }
+  .section-head.center .eyebrow{ align-items:center; }
   .pricing .section-head p{ color:rgba(255,255,255,0.82); }
 
   .pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1020px; margin:0 auto; position:relative; z-index:1; align-items:stretch; }
@@ -294,7 +352,7 @@
     backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
     border-radius:28px; box-shadow:0 40px 80px -30px rgba(0,0,0,0.6);
   }
-  .cta .eyebrow{ justify-content:center; }
+  .cta .eyebrow{ align-items:center; }
   .cta h2{ font-size:clamp(32px,5vw,54px); font-weight:800; line-height:1.08; margin-bottom:20px; letter-spacing:-.01em; }
   .cta p{ font-size:17px; color:rgba(255,255,255,0.7); margin-bottom:40px; font-weight:500; }
   .cta-buttons{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
@@ -351,7 +409,7 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    .ticker, .hero-video-glow{ animation:none !important; }
+    .ticker, .founder-card-glow{ animation:none !important; }
     .reveal{ transition:none; opacity:1; transform:none; }
     html{ scroll-behavior:auto; }
   }
@@ -373,6 +431,7 @@
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#process">Process</a>
+      <a href="#founder">About</a>
       <a href="#pricing">Pricing</a>
       <a href="#stats">Results</a>
       <a href="#contact">Contact</a>
@@ -387,6 +446,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#services">Services</a>
   <a href="#process">Process</a>
+  <a href="#founder">About</a>
   <a href="#pricing">Pricing</a>
   <a href="#stats">Results</a>
   <a href="#contact">Contact</a>
@@ -411,7 +471,6 @@
 
   <div class="wrap">
     <div class="hero-inner">
-      
       <h1 class="reveal reveal-delay-1"><span class="hh-1">Unleash</span> <span class="hh-2">your brand's</span><br><span class="hh-3 grad">next era</span></h1>
       <p class="hero-sub reveal reveal-delay-2">LYGEN builds websites and social strategies with teeth — fast, bold, and built to make your competitors nervous.</p>
       <div class="hero-cta reveal reveal-delay-3">
@@ -550,6 +609,39 @@
   </div>
 </section>
 
+<!-- ================= FOUNDER (premium glass card) ================= -->
+<section class="founder" id="founder">
+  <div class="founder-blob founder-blob-1"></div>
+  <div class="founder-blob founder-blob-2"></div>
+  <div class="wrap">
+
+    <div class="founder-head reveal">
+      <div class="eyebrow">Meet The Founder</div>
+      <h2>Not just an agency — <em>a person who means it.</em></h2>
+    </div>
+
+    <div class="founder-card reveal reveal-delay-1">
+      <div class="founder-card-glow"></div>
+      <!-- Drop your photo next to this HTML file and name it founder.jpg -->
+      <img src="founder.jpg" alt="Pasan Liyanage, Founder of LYGEN Media Agency" id="founderImg">
+      <div class="founder-photo-placeholder" id="founderPlaceholder">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        <p>founder.jpg</p>
+        <span>Add your photo next to this page to replace this placeholder</span>
+      </div>
+
+      <div class="founder-card-glass">
+        <span class="quote-mark">&ldquo;</span>
+        <p class="founder-quote">I didn't start LYGEN to build another agency — I started it so brands that can't afford a six-figure marketing team could still show up online like they can. Fast, sharp, and built with the same care I'd want for my own.</p>
+        <div class="founder-divider"></div>
+        <div class="founder-name">Pasan Liyanage</div>
+        <div class="founder-title">Founder &amp; Creative Director</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ================= STATS (white) ================= -->
 <section class="stats" id="stats">
   <div class="wrap">
@@ -678,7 +770,7 @@
     <div class="footer-bottom">
       <p>© 2026 LYGEN Media Agency. All rights reserved.</p>
       <div class="socials">
-        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://www.instagram.com/lygenmedia.agency?igsh=dnFhdWduZWxsbXhw&utm_source=qr" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
         <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7"/><path d="M7 7v.01"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><path d="M11 17v-7"/></svg></a>
         <a href="#" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l16 16"/><path d="M20 4L4 20"/></svg></a>
       </div>
@@ -741,6 +833,14 @@
   footerLogoImg.addEventListener('error', () => {
     footerLogoImg.style.display = 'none';
     footerLogoFallback.style.display = 'flex';
+  });
+
+  // Show placeholder if founder.jpg hasn't been added yet
+  const founderImg = document.getElementById('founderImg');
+  const founderPlaceholder = document.getElementById('founderPlaceholder');
+  founderImg.addEventListener('error', () => {
+    founderImg.style.display = 'none';
+    founderPlaceholder.style.display = 'flex';
   });
 
   const revealEls = document.querySelectorAll('.reveal');
