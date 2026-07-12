@@ -255,7 +255,7 @@
   .founder-card-glass{
     position:absolute; left:0; right:0; bottom:0; z-index:2;
     padding:24px 26px 22px;
-    background:rgba(10,14,26,0.55); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    background:rgba(10,14,26,0.4); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
     border-top:1px solid rgba(255,255,255,0.25);
     transition:background .35s ease, padding-top .35s ease;
   }
@@ -266,28 +266,21 @@
   }
   .founder-quote{
     font-size:14px; line-height:1.55; font-weight:500; color:rgba(255,255,255,0.88);
-    margin-bottom:14px;
+    max-height:0; opacity:0; overflow:hidden; margin-bottom:0;
+    transition:max-height .4s ease, opacity .35s ease, margin-bottom .35s ease;
   }
   .founder-divider{ width:36px; height:3px; border-radius:3px; background:var(--gradient); margin-bottom:12px; }
   .founder-name{ font-family:var(--font-accent); font-size:18px; font-weight:700; }
   .founder-title{ font-size:12px; color:rgba(255,255,255,0.6); font-weight:600; letter-spacing:.05em; text-transform:uppercase; margin-top:3px; }
+  .founder-tap-hint{ font-size:10.5px; color:rgba(255,255,255,0.4); font-weight:600; letter-spacing:.04em; margin-top:12px; }
+  @media (hover:hover) and (pointer:fine){ .founder-tap-hint{ display:none; } }
 
-  /* On real hover-capable devices, tuck the quote away until hovered for a nicer reveal moment */
-  @media (hover:hover) and (pointer:fine){
-    .founder-card-glass{ background:rgba(10,14,26,0.4); padding-top:26px; }
-    .founder-card:hover .founder-card-glass{ background:rgba(10,14,26,0.62); padding-top:34px; }
-    .founder-quote{ max-height:0; opacity:0; overflow:hidden; margin-bottom:0; transition:max-height .4s ease, opacity .35s ease, margin-bottom .35s ease; }
-    .founder-card:hover .founder-quote{ max-height:160px; opacity:1; margin-bottom:14px; }
-  }
-
-  /* On touch devices the quote is always visible (no hover) - so let the photo keep its own
-     fixed height and let the glass panel flow underneath instead of overlapping/cropping it */
-  @media (hover:none){
-    .founder-card{ aspect-ratio:auto; display:flex; flex-direction:column; }
-    .founder-card img{ position:relative; aspect-ratio:3/4; height:auto; }
-    .founder-photo-placeholder{ position:relative; inset:auto; aspect-ratio:3/4; }
-    .founder-card-glass{ position:relative; inset:auto; }
-  }
+  /* Reveal the quote on hover (desktop/mouse) or via a tap toggle (touch - handled in JS with .is-open) */
+  .founder-card:hover .founder-card-glass,
+  .founder-card.is-open .founder-card-glass{ background:rgba(10,14,26,0.62); padding-top:34px; }
+  .founder-card:hover .founder-quote,
+  .founder-card.is-open .founder-quote{ max-height:160px; opacity:1; margin-bottom:14px; }
+  .founder-card.is-open .founder-tap-hint{ display:none; }
 
   /* ================= STATS (white bg, glass tiles) ================= */
   .stats{
@@ -645,6 +638,7 @@
         <div class="founder-divider"></div>
         <div class="founder-name">Pasan Liyanage</div>
         <div class="founder-title">Founder &amp; Creative Director</div>
+        <div class="founder-tap-hint">Tap to read the quote</div>
       </div>
     </div>
 
@@ -850,6 +844,12 @@
   founderImg.addEventListener('error', () => {
     founderImg.style.display = 'none';
     founderPlaceholder.style.display = 'flex';
+  });
+
+  // Tap to reveal the quote on touch devices (mirrors the hover reveal on desktop)
+  const founderCard = document.querySelector('.founder-card');
+  founderCard.addEventListener('click', () => {
+    founderCard.classList.toggle('is-open');
   });
 
   const revealEls = document.querySelectorAll('.reveal');
