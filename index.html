@@ -6,7 +6,7 @@
 <title>LYGEN Media Agency — Websites & Social, Built With Bite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Space+Grotesk:wght@500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
   :root{
     --white:#ffffff;
@@ -50,24 +50,37 @@
   }
   .eyebrow::before{ content:''; width:34px; height:3px; border-radius:2px; background:var(--gradient); }
 
-  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.16,.8,.3,1); }
+  .reveal{ opacity:0; transform:translateY(30px) scale(.92); transition:opacity .6s ease, transform .7s cubic-bezier(.34,1.56,.64,1); }
   .reveal.in-view{ opacity:1; transform:translateY(0); }
-  .reveal-delay-1.in-view{ transition-delay:.08s; }
-  .reveal-delay-2.in-view{ transition-delay:.16s; }
-  .reveal-delay-3.in-view{ transition-delay:.24s; }
-  .reveal-delay-4.in-view{ transition-delay:.32s; }
-  .reveal-delay-5.in-view{ transition-delay:.4s; }
+  .reveal-delay-1.in-view{ transition-delay:.12s; }
+  .reveal-delay-2.in-view{ transition-delay:.24s; }
+  .reveal-delay-3.in-view{ transition-delay:.36s; }
+  .reveal-delay-4.in-view{ transition-delay:.48s; }
+  .reveal-delay-5.in-view{ transition-delay:.6s; }
 
   /* ================= NAVBAR ================= */
   .navbar{
     position:fixed; top:0; left:0; right:0; z-index:100;
-    background:linear-gradient(100deg, #0a265a, #57a2ff);
-    border-bottom:1px solid rgba(255,255,255,0.2);
-    box-shadow:0 8px 24px -8px rgba(10,38,90,0.3);
-    padding:18px 0; transition:padding .3s ease, background .3s ease;
+    padding:16px 20px 0; transition:padding .35s ease;
   }
-  .navbar.scrolled{ padding:12px 0; }
-  .nav-inner{ display:flex; align-items:center; justify-content:space-between; }
+  .navbar.scrolled{ padding:10px 20px 0; }
+  .navbar .nav-inner{
+    max-width:1180px; margin:0 auto;
+    background:linear-gradient(120deg, rgba(8,12,22,0.72), rgba(18,28,48,0.62));
+    backdrop-filter:blur(22px) saturate(180%); -webkit-backdrop-filter:blur(22px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:20px;
+    box-shadow:0 16px 40px -16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+    padding:14px 26px;
+    transition:padding .35s ease, background .35s ease, border-radius .35s ease;
+  }
+  .navbar.scrolled .nav-inner{
+    padding:10px 22px; border-radius:16px;
+    background:linear-gradient(120deg, rgba(6,9,18,0.85), rgba(14,22,40,0.78));
+  }
+  .navbar .nav-inner{ display:flex; align-items:center; justify-content:space-between; }
+  .navbar .btn-primary{ background:var(--white); color:var(--ink); }
+  .navbar .btn-primary:hover{ box-shadow:0 14px 30px -10px rgba(0,0,0,0.25); }
   .logo{ display:flex; flex-direction:column; line-height:1; }
   .logo-img{ height:38px; width:auto; }
   .logo-fallback{ display:flex; flex-direction:column; line-height:1; }
@@ -109,39 +122,200 @@
 
   /* ================= HERO (full-bleed video bg, overlay on left) ================= */
   .hero{
-    position:relative; min-height:100vh; display:flex; align-items:center;
+    position:relative; min-height:100vh; display:flex; align-items:flex-end; justify-content:center;
     padding-top:88px; overflow:hidden; background:var(--white);
   }
   .hero-media{ position:absolute; inset:0; z-index:0; background:linear-gradient(160deg, var(--green), var(--blue)); }
-  .hero-video-bg{ position:absolute; inset:0; z-index:0; }
-  .hero-video-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:right center; }
+  .hero-video-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+  .hero-video-bg img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; transform-origin:center; animation:heroSlowZoom 22s ease-in-out infinite alternate; }
+  @keyframes heroSlowZoom{
+    0%{ transform:scale(1); }
+    100%{ transform:scale(1.1); }
+  }
+  .hero-tint{
+    position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:overlay; opacity:.85;
+    background:linear-gradient(135deg, var(--blue) 0%, transparent 45%, transparent 55%, var(--green) 100%);
+  }
+  .hero-vignette{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse 75% 75% at center, transparent 55%, rgba(4,10,24,0.4) 100%);
+  }
+  .hero-orb{ position:absolute; z-index:1; border-radius:50%; filter:blur(70px); pointer-events:none; animation:heroOrbFloat 9s ease-in-out infinite; }
+  .hero-orb-1{ width:340px; height:340px; background:var(--green); opacity:.32; top:6%; left:-6%; animation-delay:0s; }
+  .hero-orb-2{ width:300px; height:300px; background:var(--blue); opacity:.3; top:12%; right:-4%; animation-delay:3s; }
+  .hero-orb-3{ width:260px; height:260px; background:var(--blue-light,#4a90f5); opacity:.22; bottom:26%; left:38%; animation-delay:5.5s; }
+  @keyframes heroOrbFloat{
+    0%,100%{ transform:translateY(0) scale(1); }
+    50%{ transform:translateY(-26px) scale(1.08); }
+  }
   .hero-overlay{
     position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.95) 26%, rgba(255,255,255,0.6) 38%, rgba(255,255,255,0) 60%);
+    background:linear-gradient(0deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.97) 12%, rgba(255,255,255,0.68) 24%, rgba(255,255,255,0) 46%);
   }
   .video-placeholder{
     position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-    color:var(--white); text-align:center; padding:30px 30px 30px 42%;
+    color:var(--white); text-align:center; padding:30px;
   }
   .video-placeholder svg{ opacity:.9; }
   .video-placeholder p{ font-family:var(--font-accent); font-size:14px; font-weight:600; letter-spacing:.02em; opacity:.9; }
   .video-placeholder span{ font-size:12px; opacity:.75; font-weight:500; max-width:260px; }
 
-  .hero .wrap{ max-width:none; padding-left:clamp(32px, 6vw, 100px); padding-right:24px; margin:0; }
-  .hero-inner{ position:relative; z-index:2; max-width:560px; text-align:left; }
-  .hero h1{ font-size:clamp(46px, 6.2vw, 78px); line-height:1.05; font-weight:800; letter-spacing:-.015em; margin-bottom:26px; text-align:left; }
+  .hero .wrap{ max-width:840px; margin:0 auto; padding:0 24px; }
+  .hero-inner{ position:relative; z-index:2; text-align:center; padding-bottom:22px; }
+  .hero-inner::before{
+    content:''; position:absolute; z-index:-1; inset:-30px -80px -10px;
+    background:radial-gradient(ellipse 70% 90% at center, rgba(255,255,255,0.65), transparent 72%);
+    filter:blur(18px); pointer-events:none;
+  }
+  .hero h1{
+    position:relative; font-size:clamp(38px, 5.6vw, 68px); line-height:0.98; font-weight:800; letter-spacing:-.015em; margin-bottom:8px; text-align:center;
+    filter:drop-shadow(0 6px 20px rgba(10,20,50,0.18));
+    overflow:hidden;
+  }
   .hero h1 .hh-1{ font-size:0.72em; font-weight:600; }
   .hero h1 .hh-2{ font-size:1em; font-weight:800; }
-  .hero h1 .hh-3{ font-size:1.18em; font-weight:800; }
+  .hero h1 .hh-3{
+    font-size:1.18em; font-weight:800;
+    background:linear-gradient(100deg, var(--blue-deep) 0%, var(--green-deep) 30%, var(--blue) 55%, var(--green-deep) 80%, var(--blue-deep) 100%);
+    background-size:280% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:heroGradFlow 6s linear infinite;
+  }
+  @keyframes heroGradFlow{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:280% 50%; }
+  }
   .hero h1 .grad{ background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero-sub{ font-size:18px; line-height:1.6; color:var(--ink-soft); max-width:460px; margin-bottom:32px; font-weight:500; }
-  .hero-cta{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:44px; }
-  .hero-meta{ display:flex; gap:34px; flex-wrap:wrap; }
-  .hero-meta div{ display:flex; flex-direction:column; gap:2px; }
-  .hero-meta strong{ font-family:var(--font-accent); font-size:26px; font-weight:700; }
-  .hero-meta span{ font-size:11.5px; color:var(--ink-soft); font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
+  .hero h1::after{
+    content:''; position:absolute; top:0; left:-150%; width:60%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+    transform:skewX(-20deg); animation:heroShimmer 3.2s ease-in-out .9s 1;
+  }
+  @keyframes heroShimmer{
+    0%{ left:-150%; }
+    45%{ left:150%; }
+    100%{ left:150%; }
+  }
+  .hero-sub{ font-size:16px; line-height:1.5; color:var(--ink-soft); max-width:500px; margin:0 auto 16px; font-weight:500; }
+  .hero-cta{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px; justify-content:center; }
+  .hero-scroll-cue{
+    display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:6px;
+    font-family:var(--font-accent); font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .hero-scroll-cue svg{ animation:heroScrollBounce 1.8s ease-in-out infinite; }
+  @keyframes heroScrollBounce{
+    0%,100%{ transform:translateY(0); opacity:.55; }
+    50%{ transform:translateY(6px); opacity:1; }
+  }
 
   /* ================= TICKER ================= */
+  /* ================= LOGO REVEAL (dark ambient, pinned scrub) ================= */
+  .logo-reveal{ background:#050912; position:relative; }
+  .logo-reveal-wrap{ position:relative; height:260vh; }
+  .logo-reveal-pin{
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lr-blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.35; animation:lrFloat 10s ease-in-out infinite; z-index:0; }
+  .lr-blob-1{ width:560px; height:560px; background:var(--blue); top:-140px; left:-120px; animation-delay:0s; }
+  .lr-blob-2{ width:500px; height:500px; background:var(--green); bottom:-160px; right:-100px; animation-delay:2.5s; }
+  .lr-blob-3{ width:400px; height:400px; background:var(--blue-light); top:38%; left:58%; opacity:.22; animation-delay:5s; }
+  .lr-blob-4{ width:320px; height:320px; background:var(--green); opacity:.16; top:8%; right:14%; animation-delay:1.2s; animation-duration:13s; }
+  .lr-blob-5{ width:280px; height:280px; background:var(--blue); opacity:.18; bottom:10%; left:10%; animation-delay:4s; animation-duration:14s; }
+  @keyframes lrFloat{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(30px,-24px) scale(1.08); }
+  }
+  .lr-stars{
+    position:absolute; inset:0; z-index:0; opacity:.55;
+    background-image:
+      radial-gradient(1.6px 1.6px at 12% 22%, rgba(255,255,255,0.9), transparent 100%),
+      radial-gradient(1.4px 1.4px at 28% 68%, rgba(255,255,255,0.7), transparent 100%),
+      radial-gradient(1.8px 1.8px at 44% 14%, rgba(255,255,255,0.85), transparent 100%),
+      radial-gradient(1.3px 1.3px at 61% 82%, rgba(255,255,255,0.65), transparent 100%),
+      radial-gradient(1.7px 1.7px at 76% 34%, rgba(255,255,255,0.8), transparent 100%),
+      radial-gradient(1.4px 1.4px at 85% 62%, rgba(255,255,255,0.6), transparent 100%),
+      radial-gradient(1.6px 1.6px at 8% 78%, rgba(255,255,255,0.75), transparent 100%),
+      radial-gradient(1.3px 1.3px at 93% 12%, rgba(255,255,255,0.65), transparent 100%),
+      radial-gradient(1.5px 1.5px at 52% 48%, rgba(255,255,255,0.7), transparent 100%),
+      radial-gradient(1.4px 1.4px at 35% 90%, rgba(255,255,255,0.6), transparent 100%);
+    animation:lrTwinkle 4.5s ease-in-out infinite;
+  }
+  @keyframes lrTwinkle{
+    0%,100%{ opacity:.4; }
+    50%{ opacity:.75; }
+  }
+  .lr-grain{
+    position:absolute; inset:0; z-index:0; opacity:.05; mix-blend-mode:overlay; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .lr-sweep{
+    position:absolute; inset:-10% -30%; z-index:0; pointer-events:none;
+    background:linear-gradient(100deg, transparent 40%, rgba(58,196,150,0.08) 48%, rgba(38,120,220,0.1) 52%, transparent 60%);
+    animation:lrSweep 11s ease-in-out infinite;
+  }
+  @keyframes lrSweep{
+    0%{ transform:translateX(-15%); }
+    50%{ transform:translateX(15%); }
+    100%{ transform:translateX(-15%); }
+  }
+  .logo-reveal-grid{
+    position:absolute; inset:0; z-index:0;
+    background-image:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:44px 44px;
+  }
+  .logo-reveal-video-bg{ position:absolute; inset:0; z-index:1; }
+  .logo-reveal-video-bg video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .logo-reveal-video-bg::after{
+    content:''; position:absolute; inset:0; background:rgba(5,9,18,0.45);
+  }
+  .logo-reveal-text{
+    position:relative; z-index:2; text-align:center; max-width:1180px; padding:0 24px; will-change:opacity, transform;
+  }
+  .logo-reveal-text .eyebrow{ align-items:center; margin:0 auto 20px; }
+  .logo-reveal-text h2{ font-weight:800; letter-spacing:-.01em; color:var(--white); }
+  .lr-line1{ display:block; font-size:clamp(24px,3.4vw,36px); font-weight:600; color:rgba(255,255,255,0.7); margin-bottom:14px; letter-spacing:-.005em; }
+  .lr-line2{ display:block; font-size:clamp(48px,8.8vw,104px); line-height:1.14; letter-spacing:-.02em; }
+  .lr-line2-a{ display:inline-block; white-space:nowrap; font-size:1.3em; }
+  .lr-line2-b{ display:inline-block; white-space:nowrap; }
+  .lr-word{ display:inline-block; opacity:0; transform:translateY(38px) scale(.9); transition:opacity .7s ease, transform .8s cubic-bezier(.2,1.4,.4,1); }
+  .logo-reveal-text.lr-in .lr-word{ opacity:1; transform:translateY(0) scale(1); }
+  .lr-line1 .lr-word:nth-child(1){ transition-delay:.02s; }
+  .lr-line1 .lr-word:nth-child(2){ transition-delay:.08s; }
+  .lr-line1 .lr-word:nth-child(3){ transition-delay:.14s; }
+  .lr-line2-a .lr-word:nth-child(1){ transition-delay:.22s; }
+  .lr-line2-a .lr-word:nth-child(2){ transition-delay:.28s; }
+  .lr-line2-a .lr-word:nth-child(3){ transition-delay:.34s; }
+  .lr-line2-b .lr-word:nth-child(1){ transition-delay:.4s; }
+  .lr-line2-b .lr-word:nth-child(2){ transition-delay:.48s; }
+  .lr-roar-wrap{ position:relative; display:inline-block; }
+  .lr-grad{
+    font-family:'Instrument Serif', 'Georgia', serif; font-style:italic; font-weight:400; letter-spacing:0; font-size:1.08em;
+    background:linear-gradient(100deg, var(--green) 0%, var(--blue) 35%, var(--blue-light,#4a90f5) 50%, var(--green) 85%, var(--blue) 100%);
+    background-size:250% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 0 34px rgba(42,204,133,0.45));
+    animation:lrGradFlow 5s linear infinite; animation-play-state:paused;
+  }
+  .logo-reveal-text.lr-in .lr-grad{ animation-play-state:running; }
+  @keyframes lrGradFlow{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:250% 50%; }
+  }
+  .logo-reveal-mark{
+    position:absolute; z-index:3; display:flex; align-items:center; justify-content:center;
+    width:min(560px, 78vw); will-change:opacity, transform;
+  }
+  .logo-reveal-mark img{ width:100%; height:auto; display:block; }
+  .logo-reveal-placeholder{
+    display:none; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    color:rgba(255,255,255,0.6); text-align:center; padding:30px;
+    width:100%; aspect-ratio:16/9; border:1.5px dashed rgba(255,255,255,0.2); border-radius:20px;
+  }
+  .logo-reveal-placeholder svg{ opacity:.8; }
+  .logo-reveal-placeholder p{ font-family:var(--font-accent); font-size:14px; font-weight:600; color:rgba(255,255,255,0.8); }
+  .logo-reveal-placeholder span{ font-size:12px; max-width:240px; }
+
   .ticker-wrap{ background:var(--ink); overflow:hidden; }
   .ticker{ display:flex; white-space:nowrap; padding:14px 0; animation:scrollLeft 24s linear infinite; }
   .ticker span{ font-family:var(--font-accent); font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--white); padding:0 24px; display:inline-flex; align-items:center; gap:24px; }
@@ -149,53 +323,119 @@
   @keyframes scrollLeft{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
   /* ================= SERVICES (blue bg, white pop cards) ================= */
-  .services{ padding:120px 0; background:var(--blue); color:var(--white); overflow:hidden; }
-  .services-blob{ position:absolute; border-radius:50%; filter:blur(60px); pointer-events:none; }
+  .services{
+    padding:120px 0; color:var(--white); position:relative;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.09) 1px, transparent 0) 0 0/30px 30px,
+      linear-gradient(135deg, #123f7e 0%, #206ad7 48%, #3688ee 100%);
+  }
+  .services-video-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+  .services-video-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .services-video-tint{ position:absolute; inset:0; z-index:0; pointer-events:none; background:rgba(8,24,52,0.32); }
+  .services-decor{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .services-blob{ position:absolute; border-radius:50%; filter:blur(60px); pointer-events:none; animation:lrFloat 11s ease-in-out infinite; }
   .services-blob-1{ width:420px; height:420px; background:var(--green); opacity:.35; top:-140px; right:-100px; }
-  .services-blob-2{ width:300px; height:300px; background:#ffffff; opacity:.08; bottom:-100px; left:-60px; }
+  .services-blob-2{ width:300px; height:300px; background:#ffffff; opacity:.08; bottom:-100px; left:-60px; animation-delay:3s; }
+  .services-blob-3{ width:260px; height:260px; background:var(--blue-light,#4a90f5); opacity:.28; top:36%; left:-80px; animation-delay:5.5s; animation-duration:14s; }
+  .services-blob-4{ width:220px; height:220px; background:var(--green); opacity:.2; bottom:12%; right:6%; animation-delay:1.5s; animation-duration:13s; }
+  .services-grain{
+    position:absolute; inset:0; z-index:0; opacity:.05; mix-blend-mode:overlay; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .services-sweep{
+    position:absolute; inset:-10% -30%; z-index:0; pointer-events:none;
+    background:linear-gradient(100deg, transparent 42%, rgba(255,255,255,0.07) 50%, transparent 58%);
+    animation:lrSweep 13s ease-in-out infinite;
+  }
   .section-head{ max-width:620px; margin-bottom:54px; position:relative; z-index:1; }
   .section-head h2{ font-size:clamp(30px,4vw,46px); font-weight:800; line-height:1.1; letter-spacing:-.01em; }
   .section-head p{ font-size:16.5px; margin-top:14px; font-weight:500; line-height:1.6; }
   .services .section-head p{ color:rgba(255,255,255,0.82); }
 
-  .services-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; position:relative; z-index:1; }
-  .card{
-    background:rgba(255,255,255,0.16); color:var(--white);
-    border:1px solid rgba(255,255,255,0.3);
-    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-    border-radius:20px; padding:34px 32px; position:relative; overflow:hidden;
-    box-shadow:0 20px 40px -22px rgba(4,12,30,0.4);
-    transition:transform .4s cubic-bezier(.16,.8,.3,1), box-shadow .4s ease, background .4s ease, border-color .4s ease;
+  .stack-wrap{ position:relative; z-index:1; margin-top:20px; height:600vh; }
+  .stack-pin{
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
   }
-  .card::after{ content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--gradient); opacity:.9; }
-  .card:hover{
-    transform:translateY(-12px) scale(1.02); background:rgba(255,255,255,0.26); border-color:rgba(255,255,255,0.55);
-    box-shadow:0 20px 45px -12px rgba(42,204,133,0.4), 0 35px 65px -20px rgba(4,12,30,0.55);
+  .stack-card{
+    position:absolute; left:50%; top:50%;
+    transform:translate(-50%,-50%) translateY(100%);
+    width:min(880px, calc(100% - 48px));
+    display:flex; flex-direction:column;
+    height:600px; max-height:76vh;
+    border-radius:28px; overflow:hidden;
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.18);
+    box-shadow:0 45px 90px -20px rgba(2,6,20,0.65);
+    color:var(--white);
+    will-change:transform;
   }
-  .card-featured{ grid-column:span 2; }
-  .card-num{
-    position:absolute; top:16px; right:24px; font-family:var(--font-accent); font-size:72px; font-weight:700;
-    color:var(--white); opacity:.16; line-height:1; z-index:0; user-select:none;
+  .stack-card::before{
+    content:''; position:absolute; inset:0; border-radius:28px; padding:1.5px; z-index:3; pointer-events:none;
+    background:linear-gradient(120deg, rgba(255,255,255,0.65), var(--green) 35%, var(--blue) 65%, rgba(255,255,255,0.2));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
   }
-  .card-icon{
-    width:58px; height:58px; border-radius:16px; background:var(--gradient);
-    display:flex; align-items:center; justify-content:center; margin-bottom:24px; color:var(--white);
-    position:relative; z-index:1; box-shadow:0 12px 24px -8px rgba(6,10,30,0.55);
-    transition:transform .4s cubic-bezier(.16,.8,.3,1);
+  .stack-card:nth-child(1){ z-index:1; }
+  .stack-card:nth-child(2){ z-index:2; }
+  .stack-card:nth-child(3){ z-index:3; }
+  .stack-card:nth-child(4){ z-index:4; }
+  .stack-card:nth-child(5){ z-index:5; }
+  .stack-card:nth-child(6){ z-index:6; }
+  .stack-glow{
+    position:absolute; inset:-6px; border-radius:32px; z-index:-1; pointer-events:none;
+    background:var(--gradient); filter:blur(38px); opacity:.55;
+    animation:glowPulse 4.5s ease-in-out infinite;
   }
-  .card:hover .card-icon{ transform:scale(1.1) rotate(-6deg); }
-  .card h3{ font-size:21.5px; font-weight:800; margin-bottom:9px; position:relative; z-index:1; letter-spacing:-.01em; }
-  .card p{ font-size:14.5px; color:rgba(255,255,255,0.8); line-height:1.6; font-weight:500; position:relative; z-index:1; }
+  .stack-card:nth-child(even) .stack-glow{ animation-delay:1.2s; }
+  .stack-card-media{
+    position:relative; height:46%; flex-shrink:0;
+    background:linear-gradient(160deg, var(--green), var(--blue));
+    overflow:hidden;
+  }
+  .stack-card:nth-child(3n+2) .stack-card-media{ background:linear-gradient(160deg, var(--blue), var(--green)); }
+  .stack-card:nth-child(3n+3) .stack-card-media{ background:linear-gradient(160deg, var(--blue-light,#4a90f5), var(--green)); }
+  .stack-card-media::after{
+    content:''; position:absolute; top:0; left:-160%; width:60%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform:skewX(-20deg); animation:heroShimmer 6s ease-in-out infinite; z-index:2;
+  }
+  .stack-card-media video, .stack-card-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .stack-card-media video{ z-index:1; }
+  .stack-card-media img{ z-index:0; }
+  .stack-card-placeholder{
+    position:absolute; inset:0; z-index:1; display:none; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    color:var(--white); text-align:center; padding:24px;
+  }
+  .stack-card-placeholder svg{ opacity:.9; }
+  .stack-card-placeholder p{ font-family:var(--font-accent); font-size:13px; font-weight:600; opacity:.9; }
+  .stack-card-placeholder span{ font-size:11px; opacity:.7; font-weight:500; max-width:200px; }
 
-  .mock-browser{ margin-top:22px; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.22); position:relative; z-index:1; }
-  .mock-bar{ display:flex; align-items:center; gap:6px; padding:10px 14px; background:rgba(0,0,0,0.15); }
-  .mock-bar i{ width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.3); }
-  .mock-bar .mock-url{ margin-left:10px; font-size:11px; color:rgba(255,255,255,0.75); background:rgba(0,0,0,0.15); padding:4px 12px; border-radius:6px; font-weight:600; }
-  .mock-body{ height:100px; background:rgba(255,255,255,0.12); position:relative; }
-  .mock-body::after{ content:''; position:absolute; left:16px; top:20px; width:60%; height:9px; border-radius:4px; background:rgba(255,255,255,0.5); box-shadow:0 22px 0 -4px rgba(255,255,255,0.35), 0 40px 0 -6px rgba(255,255,255,0.25); }
+  .stack-card-body{
+    flex:1; padding:34px 38px; position:relative; z-index:1; display:flex; flex-direction:column; justify-content:center;
+    background:rgba(10,14,26,0.45); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border-top:1px solid rgba(255,255,255,0.22);
+    overflow-y:auto;
+  }
+  .stack-card-body::after{
+    content:''; position:absolute; top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  }
+  .stack-card-body::before{
+    content:''; display:block; width:44px; height:4px; border-radius:4px; margin-bottom:16px; flex-shrink:0;
+    background:linear-gradient(90deg, var(--green), var(--blue), var(--green));
+    background-size:250% 100%;
+    animation:heroGradFlow 4s linear infinite;
+    box-shadow:0 0 14px rgba(42,204,133,0.5);
+  }
+  .stack-card-body p{ font-size:15.5px; color:rgba(255,255,255,0.88); line-height:1.75; font-weight:500; }
 
   /* ================= PROCESS (green bg, white pop cards) ================= */
-  .process{ padding:120px 0; background:var(--green); color:var(--ink); overflow:hidden; }
+  .process{
+    padding:120px 0; color:var(--ink); overflow:hidden; position:relative;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(17,17,17,0.07) 1px, transparent 0) 0 0/30px 30px,
+      linear-gradient(135deg, #1c9c62 0%, #2acc85 48%, #4fe0a0 100%);
+  }
   .process-blob{ position:absolute; border-radius:50%; filter:blur(60px); pointer-events:none; }
   .process-blob-1{ width:380px; height:380px; background:var(--blue); opacity:.25; bottom:-140px; right:-80px; }
   .process-blob-2{ width:260px; height:260px; background:#ffffff; opacity:.2; top:-90px; left:-60px; }
@@ -382,28 +622,21 @@
   @media (max-width:900px){
     .nav-links{ display:none; }
     .burger{ display:block; }
-    .services-grid{ grid-template-columns:1fr 1fr; }
-    .card-featured{ grid-column:span 2; }
+    .stack-card{ height:70vh; max-height:560px; width:calc(100% - 16px); }
+    .stack-card-body{ padding:20px 24px; }
+    .stack-wrap{ height:500vh; }
     .process-grid{ grid-template-columns:1fr 1fr; gap:24px; }
     .pricing-grid{ grid-template-columns:1fr; max-width:440px; }
     .price-card.featured{ transform:none; order:-1; }
     .price-card.featured:hover{ transform:translateY(-8px); }
     .stats-grid{ grid-template-columns:1fr 1fr; }
-  }
-  @media (max-width:760px){
-    .hero{ flex-direction:column; align-items:stretch; min-height:auto; padding:88px 0 40px; }
-    .hero .wrap{ order:2; padding-left:24px; padding-right:24px; padding-top:36px; }
-    .hero-media{
-      position:relative; inset:auto; order:1; z-index:0;
-      width:100%; margin:0; aspect-ratio:16/9; border-radius:0; overflow:hidden;
-    }
-    .hero-overlay{ display:none; }
-    .video-placeholder{ padding:20px; text-align:center; }
+    .hero{ min-height:92vh; }
+    .hero-inner{ padding-bottom:20px; }
   }
   @media (max-width:600px){
     .wrap{ padding:0 22px; }
-    .services-grid{ grid-template-columns:1fr; }
-    .card-featured{ grid-column:span 1; }
+    .navbar{ padding:12px 12px 0; }
+    .navbar .nav-inner{ padding:12px 18px; border-radius:16px; }
     .process-grid{ grid-template-columns:1fr; }
     .stats-grid{ grid-template-columns:1fr 1fr; }
     .footer-top{ gap:36px; }
@@ -411,8 +644,9 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    .ticker, .founder-card-glow{ animation:none !important; }
+    .ticker, .founder-card-glow, .lr-blob, .lr-stars, .lr-sweep, .hero-video-bg img, .services-blob, .services-sweep, .stack-glow, .stack-card-media::after, .stack-card-body::before{ animation:none !important; }
     .reveal{ transition:none; opacity:1; transform:none; }
+    .stack-card{ transition:none; }
     html{ scroll-behavior:auto; }
   }
 </style>
@@ -454,35 +688,77 @@
   <a href="#contact">Contact</a>
 </div>
 
-<!-- ================= HERO (full-bleed video, overlay left) ================= -->
-<section class="hero" id="top">
+<!-- ================= LOGO REVEAL (pinned scrub, now the true first scene) ================= -->
+<section class="logo-reveal" id="top">
+  <div class="logo-reveal-wrap">
+    <div class="logo-reveal-pin">
+      <div class="logo-reveal-grid"></div>
+      <div class="lr-stars"></div>
+      <div class="lr-blob lr-blob-1"></div>
+      <div class="lr-blob lr-blob-2"></div>
+      <div class="lr-blob lr-blob-3"></div>
+      <div class="lr-blob lr-blob-4"></div>
+      <div class="lr-blob lr-blob-5"></div>
+      <div class="lr-sweep"></div>
+      <div class="lr-grain"></div>
+
+      <div class="logo-reveal-video-bg">
+        <!-- Drop a background video next to this HTML file named logo-reveal-bg.mp4. If it's missing, the animated glow background above shows automatically instead. -->
+        <video id="logoRevealVideo" muted loop playsinline preload="none">
+          <source src="logo-reveal-bg.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="logo-reveal-text" id="logoRevealText">
+        <div class="eyebrow">This Is LYGEN</div>
+        <h2><span class="lr-line1"><span class="lr-word">Most</span> <span class="lr-word">brands</span> <span class="lr-word">whisper.</span></span><br><span class="lr-line2"><span class="lr-line2-a"><span class="lr-word">We</span> <span class="lr-word">build</span> <span class="lr-word">ones</span></span> <span class="lr-line2-b"><span class="lr-word">that</span> <span class="lr-word lr-roar-wrap"><span class="lr-grad">roar.</span></span></span></span></h2>
+      </div>
+
+      <div class="logo-reveal-mark" id="logoRevealMark">
+        <!-- Drop your 3D logo image next to this HTML file and name it logo-3d.png -->
+        <img src="logo-3d.png" alt="LYGEN" id="logoRevealImg">
+        <div class="logo-reveal-placeholder" id="logoRevealPlaceholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+          <p>logo-3d.png</p>
+          <span>Add your 3D logo next to this page to replace this placeholder</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= HERO (full-bleed video, bottom overlay, centered text) ================= -->
+<section class="hero">
   <div class="hero-media">
     <div class="hero-video-bg">
-      <!-- Drop your video file next to this HTML file and name it hero-video.mp4 -->
-      <video muted loop playsinline preload="none" poster="">
-        <source src="hero-video.mp4" type="video/mp4">
-      </video>
+      <!-- Drop your image file next to this HTML file and name it hero-image.jpg (or update the filename below) -->
+      <img src="hero-image.jpg" alt="" id="heroImage">
     </div>
     <div class="video-placeholder" id="videoPlaceholder">
-      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M10 8.5l6 3.5-6 3.5v-7z" fill="currentColor" stroke="none"/></svg>
-      <p>hero-video.mp4</p>
-      <span>Add your video file next to this page to replace this placeholder</span>
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <p>hero-image.jpg</p>
+      <span>Add your image file next to this page to replace this placeholder</span>
     </div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-tint"></div>
+    <div class="hero-vignette"></div>
   </div>
   <div class="hero-overlay"></div>
 
   <div class="wrap">
     <div class="hero-inner">
-      <h1 class="reveal reveal-delay-1"><span class="hh-1">Unleash</span> <span class="hh-2">your brand's</span><br><span class="hh-3 grad">next era</span></h1>
+      <h1 class="reveal reveal-delay-1"><span class="hh-1">Unleash</span> <span class="hh-2">your brand's</span><br><span class="hh-3">next era</span></h1>
       <p class="hero-sub reveal reveal-delay-2">LYGEN builds websites and social strategies with teeth — fast, bold, and built to make your competitors nervous.</p>
       <div class="hero-cta reveal reveal-delay-3">
         <a href="#contact" class="btn btn-primary">Start Your Project</a>
         <a href="#services" class="btn btn-outline-dark">See What We Do</a>
       </div>
-      <div class="hero-meta reveal reveal-delay-4">
-        <div><strong>15+</strong><span>Projects Delivered</span></div>
-        <div><strong>&lt;1hr</strong><span>Avg. Response Time</span></div>
-        <div><strong>100%</strong><span>Custom-Built, No Templates</span></div>
+      <div class="hero-scroll-cue reveal reveal-delay-4">
+        <span>Scroll to explore</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
     </div>
   </div>
@@ -498,75 +774,153 @@
 
 <!-- ================= SERVICES (blue) ================= -->
 <section class="services" id="services">
-  <div class="services-blob services-blob-1"></div>
-  <div class="services-blob services-blob-2"></div>
+  <div class="services-video-bg">
+    <!-- Optional: drop a video named services-bg.mp4 next to this file for a motion background. If it's missing (or fails to load) this just falls back to the blue gradient below - nothing breaks. -->
+    <video class="services-video" muted loop playsinline preload="none" autoplay>
+      <source src="services-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="services-video-tint"></div>
+  <div class="services-decor">
+    <div class="services-blob services-blob-1"></div>
+    <div class="services-blob services-blob-2"></div>
+    <div class="services-blob services-blob-3"></div>
+    <div class="services-blob services-blob-4"></div>
+    <div class="services-sweep"></div>
+    <div class="services-grain"></div>
+  </div>
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">What We Do</div>
       <h2>Everything a growing brand needs</h2>
       <p>From the site your customers land on to the feed they scroll every day — we build the whole growth engine.</p>
     </div>
-    <div class="services-grid">
+  </div>
 
-      <div class="card card-featured reveal">
-        <span class="card-num">01</span>
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 21h8"/><path d="M12 18v3"/></svg>
-        </div>
-        <h3>Web Design & Development</h3>
-        <p>High-performance, conversion-built websites that make your brand impossible to scroll past.</p>
-        <div class="mock-browser">
-          <div class="mock-bar"><i></i><i></i><i></i><span class="mock-url">yourbrand.com</span></div>
-          <div class="mock-body"></div>
+  <div class="stack-wrap">
+   <div class="stack-pin">
+
+    <div class="stack-card">
+      <div class="stack-glow"></div>
+      <div class="stack-card-media">
+        <!-- Optional: drop a video named service-web.mp4 next to this file for a motion background. If it's missing this just falls back to the image/gradient below - nothing breaks. -->
+        <video class="stack-video" muted loop playsinline preload="none" autoplay>
+          <source src="service-web.mp4" type="video/mp4">
+        </video>
+        <!-- Drop a graphic next to this HTML file named service-web.jpg (design the "Web Design & Development" title into the graphic itself) -->
+        <img src="service-web.jpg" alt="Web Design & Development" class="stack-img">
+        <div class="stack-card-placeholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>
+          <p>service-web.jpg</p>
+          <span>Add a graphic next to this page to replace this placeholder</span>
         </div>
       </div>
-
-      <div class="card reveal reveal-delay-1">
-        <span class="card-num">02</span>
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4V7l-3 4H5a2 2 0 0 0-2 2z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
-        </div>
-        <h3>Social Media Management</h3>
-        <p>Daily content, community management, and a posting cadence that keeps you top of feed.</p>
+      <div class="stack-card-body">
+        <p>Your website is often the first real impression a potential client gets of your brand — and most sites lose people in the first five seconds. We design and build fast, mobile-first websites that don't just look sharp, they're structured to turn visitors into leads. Every page is built with intent: clear messaging, a strong visual hierarchy, and calls-to-action people actually click.</p>
       </div>
-
-      <div class="card reveal reveal-delay-2">
-        <span class="card-num">03</span>
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M17 10l4-3v10l-4-3"/></svg>
-        </div>
-        <h3>Content Creation</h3>
-        <p>Scroll-stopping photo, video, and graphic content shot and edited for every platform.</p>
-      </div>
-
-      <div class="card reveal reveal-delay-3">
-        <span class="card-num">04</span>
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M11 19V5"/><path d="M18 19v-7"/><path d="M3 19h18"/></svg>
-        </div>
-        <h3>Paid Advertising</h3>
-        <p>Performance-driven campaigns across Meta, TikTok, and Google that turn spend into growth.</p>
-      </div>
-
-      <div class="card reveal reveal-delay-4">
-        <span class="card-num">05</span>
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18 4.5 4.5 0 0 1 0-9 4.5 4.5 0 0 0 0-9z"/></svg>
-        </div>
-        <h3>Branding & Identity</h3>
-        <p>Logos, guidelines, and visual systems built to hold up across every touchpoint.</p>
-      </div>
-
-      <div class="card reveal reveal-delay-5">
-        <span class="card-num">06</span>
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        </div>
-        <h3>SEO & Analytics</h3>
-        <p>Technical SEO and clear reporting that turns traffic into a real growth engine.</p>
-      </div>
-
     </div>
+
+    <div class="stack-card">
+      <div class="stack-glow"></div>
+      <div class="stack-card-media">
+        <!-- Optional: drop a video named service-social.mp4 next to this file for a motion background. Falls back to the image/gradient below if missing. -->
+        <video class="stack-video" muted loop playsinline preload="none" autoplay>
+          <source src="service-social.mp4" type="video/mp4">
+        </video>
+        <!-- Drop a graphic next to this HTML file named service-social.jpg -->
+        <img src="service-social.jpg" alt="Social Media Management" class="stack-img">
+        <div class="stack-card-placeholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4V7l-3 4H5a2 2 0 0 0-2 2z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+          <p>service-social.jpg</p>
+          <span>Add a graphic next to this page to replace this placeholder</span>
+        </div>
+      </div>
+      <div class="stack-card-body">
+        <p>Consistency is what separates brands people remember from brands people scroll past. We handle the full cycle — planning, captions, posting schedule, and community replies — so your page stays active and on-brand every single week. No generic templates, no copy-paste captions, just content built around how your actual audience behaves.</p>
+      </div>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-glow"></div>
+      <div class="stack-card-media">
+        <!-- Optional: drop a video named service-content.mp4 next to this file for a motion background. Falls back to the image/gradient below if missing. -->
+        <video class="stack-video" muted loop playsinline preload="none" autoplay>
+          <source src="service-content.mp4" type="video/mp4">
+        </video>
+        <!-- Drop a graphic next to this HTML file named service-content.jpg -->
+        <img src="service-content.jpg" alt="Content Creation" class="stack-img">
+        <div class="stack-card-placeholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M17 10l4-3v10l-4-3"/></svg>
+          <p>service-content.jpg</p>
+          <span>Add a graphic next to this page to replace this placeholder</span>
+        </div>
+      </div>
+      <div class="stack-card-body">
+        <p>Great content doesn't happen by accident — it's planned, shot, and edited with a purpose. From short-form reels to product photography, we create scroll-stopping visuals tailored to each platform's format and pace. Every piece is built to hold attention in the first two seconds and carry your brand's personality all the way through.</p>
+      </div>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-glow"></div>
+      <div class="stack-card-media">
+        <!-- Optional: drop a video named service-ads.mp4 next to this file for a motion background. Falls back to the image/gradient below if missing. -->
+        <video class="stack-video" muted loop playsinline preload="none" autoplay>
+          <source src="service-ads.mp4" type="video/mp4">
+        </video>
+        <!-- Drop a graphic next to this HTML file named service-ads.jpg -->
+        <img src="service-ads.jpg" alt="Paid Advertising" class="stack-img">
+        <div class="stack-card-placeholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V9"/><path d="M11 19V5"/><path d="M18 19v-7"/></svg>
+          <p>service-ads.jpg</p>
+          <span>Add a graphic next to this page to replace this placeholder</span>
+        </div>
+      </div>
+      <div class="stack-card-body">
+        <p>Ad spend without strategy is just money disappearing. We build and manage performance campaigns across Meta, TikTok, and Google with clear targeting, tested creative, and constant optimization. You'll always know exactly what your budget is doing and why — no vague reports, just real numbers tied to real growth.</p>
+      </div>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-glow"></div>
+      <div class="stack-card-media">
+        <!-- Optional: drop a video named service-branding.mp4 next to this file for a motion background. Falls back to the image/gradient below if missing. -->
+        <video class="stack-video" muted loop playsinline preload="none" autoplay>
+          <source src="service-branding.mp4" type="video/mp4">
+        </video>
+        <!-- Drop a graphic next to this HTML file named service-branding.jpg -->
+        <img src="service-branding.jpg" alt="Branding & Identity" class="stack-img">
+        <div class="stack-card-placeholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18"/></svg>
+          <p>service-branding.jpg</p>
+          <span>Add a graphic next to this page to replace this placeholder</span>
+        </div>
+      </div>
+      <div class="stack-card-body">
+        <p>A strong brand isn't just a logo — it's a whole system that stays consistent whether someone finds you on Instagram, your website, or a printed flyer. We build complete identity kits: logo, color palette, typography, and usage guidelines, so your brand looks intentional everywhere it shows up.</p>
+      </div>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-glow"></div>
+      <div class="stack-card-media">
+        <!-- Optional: drop a video named service-seo.mp4 next to this file for a motion background. Falls back to the image/gradient below if missing. -->
+        <video class="stack-video" muted loop playsinline preload="none" autoplay>
+          <source src="service-seo.mp4" type="video/mp4">
+        </video>
+        <!-- Drop a graphic next to this HTML file named service-seo.jpg -->
+        <img src="service-seo.jpg" alt="SEO & Analytics" class="stack-img">
+        <div class="stack-card-placeholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <p>service-seo.jpg</p>
+          <span>Add a graphic next to this page to replace this placeholder</span>
+        </div>
+      </div>
+      <div class="stack-card-body">
+        <p>If people can't find you on Google, you're invisible to a huge share of potential customers. We handle technical SEO, on-page optimization, and clear monthly reporting that actually makes sense — no jargon, just a straight answer to "is this working?" backed by real traffic and ranking data.</p>
+      </div>
+    </div>
+
+   </div>
   </div>
 </section>
 
@@ -773,9 +1127,9 @@
     <div class="footer-bottom">
       <p>© 2026 LYGEN Media Agency. All rights reserved.</p>
       <div class="socials">
-        <a href="https://www.instagram.com/lygenmedia.agency?igsh=dnFhdWduZWxsbXhw&utm_source=qr" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-        <a href="https://www.facebook.com/share/1Hyh2a9sRt/?mibextid=wwXIfr" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="https://wa.me/94711373969" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l1.3-4A8 8 0 1 1 9 19l-5 1z"/><path d="M8.5 9.5c0 3.5 2.5 6 6 6l1-2-2.5-1-1 1a5 5 0 0 1-3.5-3.5l1-1-1-2.5-2 1z" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.instagram.com/lygenmedia.agency?igsh=dnFhdWduZWxsbXhw&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://www.facebook.com/share/1Hyh2a9sRt/?mibextid=wwXIfr" aria-label="Facebook" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://wa.me/94xxxxxxxx" aria-label="WhatsApp" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l1.3-4A8 8 0 1 1 9 19l-5 1z"/><path d="M8.5 9.5c0 3.5 2.5 6 6 6l1-2-2.5-1-1 1a5 5 0 0 1-3.5-3.5l1-1-1-2.5-2 1z" fill="currentColor" stroke="none"/></svg></a>
       </div>
     </div>
   </div>
@@ -798,30 +1152,15 @@
     mobileMenu.classList.remove('open');
   }));
 
-  // Hide the placeholder overlay automatically once a real video loads
-  const heroVideo = document.querySelector('.hero-video-bg video');
+  // Hide the placeholder overlay automatically once the real image loads
+  const heroImage = document.getElementById('heroImage');
   const placeholder = document.getElementById('videoPlaceholder');
-  heroVideo.addEventListener('loadeddata', () => { placeholder.style.display = 'none'; });
-  heroVideo.addEventListener('error', () => { placeholder.style.display = 'flex'; });
-
-  // Lazy-load and only play the hero video while it's actually visible (saves data/battery, esp. on mobile)
-  const heroMedia = document.querySelector('.hero-media');
-  let heroVideoLoaded = false;
-  const heroVideoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!heroVideoLoaded) {
-          heroVideo.preload = 'auto';
-          heroVideo.load();
-          heroVideoLoaded = true;
-        }
-        heroVideo.play().catch(() => {});
-      } else {
-        heroVideo.pause();
-      }
-    });
-  }, { threshold: 0.25 });
-  heroVideoObserver.observe(heroMedia);
+  if (heroImage.complete && heroImage.naturalWidth > 0) {
+    placeholder.style.display = 'none';
+  } else {
+    heroImage.addEventListener('load', () => { placeholder.style.display = 'none'; });
+    heroImage.addEventListener('error', () => { placeholder.style.display = 'flex'; });
+  }
 
   // Show fallback text logo if logo.png hasn't been added yet
   const navLogoImg = document.getElementById('navLogoImg');
@@ -851,6 +1190,153 @@
   founderCard.addEventListener('click', () => {
     founderCard.classList.toggle('is-open');
   });
+
+  // Show placeholder for each service card graphic if it hasn't been added yet
+  document.querySelectorAll('.stack-img').forEach((img) => {
+    const placeholder = img.nextElementSibling;
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      if (placeholder) placeholder.style.display = 'flex';
+    });
+  });
+
+  // Optional per-card background videos: if a video file hasn't been added (or fails to load),
+  // hide it so the image (and its own fallback placeholder) shows through underneath - nothing breaks.
+  document.querySelectorAll('.stack-video').forEach((video) => {
+    video.addEventListener('error', () => { video.style.display = 'none'; }, true);
+    video.play().catch(() => {});
+  });
+
+  // Optional services section background video: if services-bg.mp4 hasn't been added (or fails to load),
+  // hide it so the existing blue gradient background shows through - nothing breaks.
+  document.querySelectorAll('.services-video').forEach((video) => {
+    video.addEventListener('error', () => { video.style.display = 'none'; }, true);
+    video.play().catch(() => {});
+  });
+
+  // Pinned scroll-through for the "What We Do" cards:
+  // the section pins in place while scrolling through it, and each card slides up from
+  // below - directly scrubbed to scroll position - to gradually cover the one before it.
+  const stackWrap = document.querySelector('.stack-wrap');
+  const stackCards = Array.from(document.querySelectorAll('.stack-card'));
+  if (stackWrap && stackCards.length) {
+    const numTransitions = stackCards.length - 1; // card 0 has no arrival animation, it's already in place
+    let stackTicking = false;
+    function updateStack() {
+      const rect = stackWrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const scrollableDistance = rect.height - vh;
+      const progress = scrollableDistance > 0
+        ? Math.min(Math.max(-rect.top / scrollableDistance, 0), 1)
+        : 0;
+      stackCards.forEach((card, i) => {
+        if (i === 0) {
+          card.style.transform = 'translate(-50%,-50%) translateY(0%)';
+          return;
+        }
+        const windowStart = (i - 1) / numTransitions;
+        const windowEnd = i / numTransitions;
+        let local = (progress - windowStart) / (windowEnd - windowStart);
+        local = Math.min(Math.max(local, 0), 1);
+        const slideY = (1 - local) * 100; // 100% (hidden below) -> 0% (settled in place)
+        card.style.transform = `translate(-50%,-50%) translateY(${slideY}%)`;
+      });
+      stackTicking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!stackTicking) {
+        requestAnimationFrame(updateStack);
+        stackTicking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateStack, { passive: true });
+    updateStack();
+  }
+
+  // Logo reveal: pinned section where the heading fades out and the logo zooms in,
+  // both scrubbed directly to scroll position through the pin's runway.
+  const logoRevealWrap = document.querySelector('.logo-reveal-wrap');
+  const logoRevealText = document.getElementById('logoRevealText');
+  const logoRevealMark = document.getElementById('logoRevealMark');
+  if (logoRevealWrap && logoRevealText && logoRevealMark) {
+    let lrTicking = false;
+    function updateLogoReveal() {
+      const rect = logoRevealWrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const scrollableDistance = rect.height - vh;
+      const progress = scrollableDistance > 0
+        ? Math.min(Math.max(-rect.top / scrollableDistance, 0), 1)
+        : 0;
+
+      // Text: fully visible early, fades out by ~35% progress
+      const textProgress = Math.min(Math.max(progress / 0.35, 0), 1);
+      logoRevealText.style.opacity = String(1 - textProgress);
+      logoRevealText.style.transform = `scale(${1 - textProgress * 0.08}) translateY(${-textProgress * 20}px)`;
+
+      // Logo: starts invisible/small, scrubs in from ~15% to ~85% progress, holds after
+      const logoProgress = Math.min(Math.max((progress - 0.15) / 0.7, 0), 1);
+      const eased = 1 - Math.pow(1 - logoProgress, 2);
+      logoRevealMark.style.opacity = String(eased);
+      const scale = 0.45 + eased * 1.35;
+      logoRevealMark.style.transform = `scale(${scale})`;
+
+      lrTicking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!lrTicking) {
+        requestAnimationFrame(updateLogoReveal);
+        lrTicking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateLogoReveal, { passive: true });
+    updateLogoReveal();
+  }
+
+  // Trigger the dramatic word-by-word "roar" entrance once, the first time the section is in view
+  if (logoRevealText) {
+    const lrEntranceObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          logoRevealText.classList.add('lr-in');
+          lrEntranceObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+    lrEntranceObserver.observe(logoRevealText);
+  }
+
+  // Show placeholder if the 3D logo hasn't been added yet
+  const logoRevealImg = document.getElementById('logoRevealImg');
+  const logoRevealPlaceholder = document.getElementById('logoRevealPlaceholder');
+  if (logoRevealImg && logoRevealPlaceholder) {
+    logoRevealImg.addEventListener('error', () => {
+      logoRevealImg.style.display = 'none';
+      logoRevealPlaceholder.style.display = 'flex';
+    });
+  }
+
+  // Lazy-load the logo-reveal background video (only loads/plays once scrolled into view).
+  // If the file is missing, it simply stays empty and the animated glow background behind it shows through.
+  const logoRevealVideo = document.getElementById('logoRevealVideo');
+  const logoRevealSection = document.querySelector('.logo-reveal');
+  if (logoRevealVideo && logoRevealSection) {
+    let lrVideoLoaded = false;
+    const lrVideoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!lrVideoLoaded) {
+            logoRevealVideo.preload = 'auto';
+            logoRevealVideo.load();
+            lrVideoLoaded = true;
+          }
+          logoRevealVideo.play().catch(() => {});
+        } else {
+          logoRevealVideo.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+    lrVideoObserver.observe(logoRevealSection);
+  }
 
   const revealEls = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
