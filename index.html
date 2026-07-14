@@ -150,14 +150,14 @@
   .video-placeholder span{ font-size:12px; opacity:.75; font-weight:500; max-width:260px; }
 
   .hero .wrap{ max-width:840px; margin:0 auto; padding:0 24px; }
-  .hero-inner{ position:relative; z-index:2; text-align:center; padding-bottom:22px; }
+  .hero-inner{ position:relative; z-index:2; text-align:center; padding-bottom:18px; }
   .hero-inner::before{
     content:''; position:absolute; z-index:-1; inset:-30px -80px -10px;
     background:radial-gradient(ellipse 70% 90% at center, rgba(255,255,255,0.65), transparent 72%);
     filter:blur(18px); pointer-events:none;
   }
   .hero h1{
-    position:relative; font-size:clamp(38px, 5.6vw, 68px); line-height:0.98; font-weight:800; letter-spacing:-.015em; margin-bottom:8px; text-align:center;
+    position:relative; font-size:clamp(38px, 5.6vw, 68px); line-height:0.98; font-weight:800; letter-spacing:-.015em; margin-bottom:26px; text-align:center;
     filter:drop-shadow(0 6px 20px rgba(10,20,50,0.18));
     overflow:hidden;
   }
@@ -263,6 +263,13 @@
   }
   .logo-reveal-text .eyebrow{ align-items:center; margin:0 auto 20px; }
   .logo-reveal-text h2{ font-weight:800; letter-spacing:-.01em; color:var(--white); }
+  .logo-reveal-cta{
+    display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:36px;
+    opacity:0; transform:translateY(24px); transition:opacity .7s ease .6s, transform .7s cubic-bezier(.2,1.4,.4,1) .6s;
+  }
+  .logo-reveal-text.lr-in .logo-reveal-cta{ opacity:1; transform:translateY(0); }
+  .logo-reveal-cta .btn-primary{ background:var(--white); color:var(--ink); }
+  .logo-reveal-cta .btn-primary:hover{ box-shadow:0 14px 30px -10px rgba(0,0,0,0.4); }
   .lr-line1{ display:block; font-size:clamp(24px,3.4vw,36px); font-weight:600; color:rgba(255,255,255,0.7); margin-bottom:14px; letter-spacing:-.005em; }
   .lr-line2{ display:block; font-size:clamp(48px,8.8vw,104px); line-height:1.14; letter-spacing:-.02em; }
   .lr-line2-a{ display:inline-block; white-space:nowrap; font-size:1.3em; }
@@ -315,8 +322,8 @@
   .services{
     padding:120px 0; color:var(--white); position:relative;
     background:
-      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.09) 1px, transparent 0) 0 0/30px 30px,
-      linear-gradient(135deg, #123f7e 0%, #206ad7 48%, #3688ee 100%);
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0) 0 0/30px 30px,
+      var(--black);
   }
   .services-video-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
   .services-video-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
@@ -621,8 +628,8 @@
     .stats-grid{ grid-template-columns:1fr 1fr; }
     .hero{ min-height:92vh; }
     .hero-inner{ padding-bottom:20px; }
-    .lr-line2{ font-size:clamp(24px, 8vw, 64px); line-height:1.22; }
-    .lr-line2-a{ font-size:1.15em; }
+    .lr-line2{ font-size:clamp(26px, 8.5vw, 70px); line-height:1.22; }
+    .lr-line2-a{ font-size:1.16em; }
   }
   @media (max-width:600px){
     .wrap{ padding:0 22px; }
@@ -635,6 +642,13 @@
     .stats-grid{ grid-template-columns:1fr 1fr; }
     .footer-top{ gap:36px; }
     .footer-cols{ gap:40px; }
+    .logo-reveal-cta{ margin-top:22px; }
+    .logo-reveal-cta .btn{ padding:12px 22px; font-size:13.5px; }
+  }
+
+  @media (max-width:480px){
+    .lr-line2{ font-size:clamp(26px, 9vw, 46px); }
+    .lr-line2-a{ font-size:1.16em; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -707,6 +721,10 @@
       <div class="logo-reveal-text" id="logoRevealText">
         <div class="eyebrow">This Is LYGEN</div>
         <h2><span class="lr-line1"><span class="lr-word">Most</span> <span class="lr-word">brands</span> <span class="lr-word">whisper.</span></span><br><span class="lr-line2"><span class="lr-line2-a"><span class="lr-word">We</span> <span class="lr-word">build</span> <span class="lr-word">ones</span></span> <span class="lr-line2-b"><span class="lr-word">that</span> <span class="lr-word lr-roar-wrap"><span class="lr-grad">roar.</span></span></span></span></h2>
+        <div class="logo-reveal-cta">
+          <a href="#contact" class="btn btn-primary">Start Your Project</a>
+          <a href="#services" class="btn btn-outline-light">See What We Do</a>
+        </div>
       </div>
 
       <div class="logo-reveal-mark" id="logoRevealMark">
@@ -742,11 +760,6 @@
   <div class="wrap">
     <div class="hero-inner">
       <h1 class="reveal reveal-delay-1"><span class="hh-1">Unleash</span> <span class="hh-2">your brand's</span><br><span class="hh-3">next era</span></h1>
-      <p class="hero-sub reveal reveal-delay-2">LYGEN builds websites and social strategies with teeth — fast, bold, and built to make your competitors nervous.</p>
-      <div class="hero-cta reveal reveal-delay-3">
-        <a href="#contact" class="btn btn-primary">Start Your Project</a>
-        <a href="#services" class="btn btn-outline-dark">See What We Do</a>
-      </div>
       <div class="hero-scroll-cue reveal reveal-delay-4">
         <span>Scroll to explore</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
