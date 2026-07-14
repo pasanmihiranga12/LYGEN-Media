@@ -133,10 +133,6 @@
     0%{ transform:scale(1); }
     100%{ transform:scale(1.1); }
   }
-  .hero-tint{
-    position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:overlay; opacity:.85;
-    background:linear-gradient(135deg, var(--blue) 0%, transparent 45%, transparent 55%, var(--green) 100%);
-  }
   .hero-vignette{
     position:absolute; inset:0; z-index:1; pointer-events:none;
     background:radial-gradient(ellipse 75% 75% at center, transparent 55%, rgba(4,10,24,0.4) 100%);
@@ -750,7 +746,6 @@
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>
     <div class="hero-orb hero-orb-3"></div>
-    <div class="hero-tint"></div>
     <div class="hero-vignette"></div>
   </div>
   <div class="hero-overlay"></div>
@@ -784,7 +779,7 @@
   <div class="services-video-bg">
     <!-- Optional: drop a video named services-bg.mp4 next to this file for a motion background. If it's missing (or fails to load) this just falls back to the blue gradient below - nothing breaks. -->
     <video class="services-video" muted loop playsinline preload="none" autoplay>
-      <source src="services-bg.mp4" type="video/mp4">
+      <source src="services-bg1.mp4" type="video/mp4">
     </video>
   </div>
   <div class="services-video-tint"></div>
