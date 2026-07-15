@@ -199,16 +199,16 @@
 
   /* ================= TICKER ================= */
   /* ================= LOGO REVEAL (dark ambient, pinned scrub) ================= */
-  .logo-reveal{ background:#050912; position:relative; }
+  .logo-reveal{ background:#000000; position:relative; }
   .logo-reveal-wrap{ position:relative; height:260vh; }
   .logo-reveal-pin{
     position:sticky; top:0; height:100vh; overflow:hidden;
     display:flex; align-items:center; justify-content:center;
   }
-  .lr-blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.35; animation:lrFloat 10s ease-in-out infinite; z-index:0; }
+  .lr-blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.14; animation:lrFloat 10s ease-in-out infinite; z-index:0; }
   .lr-blob-1{ width:560px; height:560px; background:var(--blue); top:-140px; left:-120px; animation-delay:0s; }
   .lr-blob-2{ width:500px; height:500px; background:var(--green); bottom:-160px; right:-100px; animation-delay:2.5s; }
-  .lr-blob-3{ width:400px; height:400px; background:var(--blue-light); top:38%; left:58%; opacity:.22; animation-delay:5s; }
+  .lr-blob-3{ width:400px; height:400px; background:var(--blue-light); top:38%; left:58%; opacity:.08; animation-delay:5s; }
   .lr-blob-4{ width:320px; height:320px; background:var(--green); opacity:.16; top:8%; right:14%; animation-delay:1.2s; animation-duration:13s; }
   .lr-blob-5{ width:280px; height:280px; background:var(--blue); opacity:.18; bottom:10%; left:10%; animation-delay:4s; animation-duration:14s; }
   @keyframes lrFloat{
@@ -256,7 +256,7 @@
   .logo-reveal-video-bg{ position:absolute; inset:0; z-index:1; }
   .logo-reveal-video-bg video{ width:100%; height:100%; object-fit:cover; display:block; }
   .logo-reveal-video-bg::after{
-    content:''; position:absolute; inset:0; background:rgba(5,9,18,0.45);
+    content:''; position:absolute; inset:0; background:rgba(0,0,0,0.45);
   }
   .logo-reveal-text{
     position:relative; z-index:2; text-align:center; max-width:1180px; padding:0 24px; will-change:opacity, transform;
@@ -657,9 +657,135 @@
     .stack-card{ transition:none; }
     html{ scroll-behavior:auto; }
   }
+  /* ================= PRELOADER ================= */
+  .preloader{
+    position:fixed; inset:0; z-index:99999; background:#000;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transition:opacity .8s ease, visibility .8s ease;
+  }
+  .preloader.is-done{ opacity:0; visibility:hidden; pointer-events:none; }
+  .preloader-blob{
+    position:absolute; width:420px; height:420px; border-radius:50%;
+    background:var(--gradient); filter:blur(100px); opacity:.3;
+    animation:pBlobPulse 3s ease-in-out infinite;
+  }
+  @keyframes pBlobPulse{
+    0%,100%{ transform:scale(1); opacity:.25; }
+    50%{ transform:scale(1.18); opacity:.42; }
+  }
+
+  /* Radar-style pulse rings expanding outward */
+  .preloader-rings{ position:relative; z-index:1; width:0; height:0; }
+  .preloader-rings span{
+    position:absolute; top:0; left:0; width:200px; height:200px; margin:-100px;
+    border-radius:50%; border:1px solid rgba(255,255,255,0.16);
+    opacity:0; animation:pPing 2.8s ease-out infinite;
+  }
+  .preloader-rings span:nth-child(2){ animation-delay:1.4s; }
+  @keyframes pPing{
+    0%{ transform:scale(.55); opacity:.55; }
+    100%{ transform:scale(2.1); opacity:0; }
+  }
+
+  /* Rotating gradient loading ring around the logo */
+  .preloader-orb{ position:relative; z-index:1; width:200px; height:200px; display:flex; align-items:center; justify-content:center; }
+  .preloader-spinner{
+    position:absolute; inset:0; width:100%; height:100%;
+    filter:drop-shadow(0 0 14px rgba(42,204,133,0.4));
+    opacity:0; animation:pSpin 1.6s linear infinite, pFadeIn .5s ease forwards;
+    animation-delay:0s, .15s;
+  }
+  @keyframes pSpin{ to{ transform:rotate(360deg); } }
+  .pGradStop1{ stop-color:var(--green); }
+  .pGradStop2{ stop-color:var(--blue); }
+
+  .preloader-logo-wrap{ position:relative; z-index:2; overflow:hidden; padding:4px 10px; }
+  .preloader-logo-wrap::after{
+    content:''; position:absolute; top:0; left:-60%; width:35%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform:skewX(-20deg); animation:pSweep 2.4s ease-in-out infinite; animation-delay:1.9s;
+  }
+  @keyframes pSweep{
+    0%{ left:-60%; }
+    100%{ left:140%; }
+  }
+  .preloader-logo-img{
+    position:relative; z-index:1; display:block; width:min(140px, 34vw); height:auto;
+    opacity:0; filter:blur(16px); transform:scale(.6) rotate(-6deg);
+    animation:pLogoIn 1.1s cubic-bezier(.16,.8,.3,1) forwards; animation-delay:.35s;
+  }
+  @keyframes pLogoIn{ to{ opacity:1; filter:blur(0); transform:scale(1) rotate(0deg); } }
+  .preloader-letters{ position:relative; z-index:1; display:flex; }
+  .preloader-letters span{
+    display:inline-block; font-family:var(--font-accent); font-weight:700;
+    font-size:clamp(30px,5.5vw,48px); color:var(--white); letter-spacing:.01em;
+    opacity:0; filter:blur(10px); transform:scale(.7);
+    animation:pLogoIn .8s cubic-bezier(.16,.8,.3,1) forwards;
+  }
+  .preloader-letters span.grad{ background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .preloader-letters span:nth-child(1){ animation-delay:.35s; }
+  .preloader-letters span:nth-child(2){ animation-delay:.43s; }
+  .preloader-letters span:nth-child(3){ animation-delay:.51s; }
+  .preloader-letters span:nth-child(4){ animation-delay:.59s; }
+  .preloader-letters span:nth-child(5){ animation-delay:.67s; }
+
+  .preloader-sub{
+    position:relative; z-index:1; margin-top:22px; font-size:11px; font-weight:700;
+    letter-spacing:.4em; color:rgba(255,255,255,0.55); text-transform:uppercase;
+    opacity:0; animation:pFadeIn .6s ease forwards; animation-delay:1.4s;
+  }
+  @keyframes pFadeIn{ to{ opacity:1; } }
+  .preloader-bar{
+    position:relative; z-index:1; width:160px; height:3px; border-radius:3px;
+    background:rgba(255,255,255,0.12); overflow:hidden; margin-top:20px;
+    opacity:0; animation:pFadeIn .5s ease forwards; animation-delay:1.6s;
+  }
+  .preloader-bar::after{
+    content:''; position:absolute; inset:0; width:45%; border-radius:3px;
+    background:var(--gradient); animation:pBarSlide 1.3s ease-in-out infinite; animation-delay:1.6s;
+  }
+  @keyframes pBarSlide{
+    0%{ transform:translateX(-120%); }
+    50%{ transform:translateX(140%); }
+    100%{ transform:translateX(140%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .preloader-blob, .preloader-logo-wrap::after, .preloader-bar::after, .preloader-spinner, .preloader-rings span{ animation:none !important; }
+    .preloader-letters span, .preloader-sub, .preloader-bar, .preloader-logo-img, .preloader-spinner{ opacity:1 !important; filter:none !important; transform:none !important; animation:none !important; }
+  }
+
 </style>
 </head>
 <body>
+
+<!-- ================= PRELOADER ================= -->
+<div class="preloader" id="preloader">
+  <div class="preloader-blob"></div>
+  <div class="preloader-rings">
+    <span></span><span></span>
+  </div>
+  <div class="preloader-orb">
+    <svg class="preloader-spinner" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <linearGradient id="pGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" class="pGradStop1"></stop>
+          <stop offset="100%" class="pGradStop2"></stop>
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#pGrad)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="120 200"></circle>
+    </svg>
+    <div class="preloader-logo-wrap">
+      <!-- Drop your logo file next to this HTML file and name it logo.png -->
+      <img src="logo.png" alt="LYGEN" class="preloader-logo-img" id="preloaderLogoImg">
+      <div class="preloader-letters" id="preloaderLetters" style="display:none;">
+        <span>L</span><span>Y</span><span class="grad">G</span><span>E</span><span>N</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="preloader-bar"></div>
+</div>
+
 
 <!-- ================= NAVBAR ================= -->
 <nav class="navbar" id="navbar">
@@ -771,8 +897,8 @@
 <!-- ================= TICKER ================= -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <span>Web Design</span><span>Social Media</span><span>Content Creation</span><span>Paid Ads</span><span>Branding</span><span>SEO</span>
-    <span>Web Design</span><span>Social Media</span><span>Content Creation</span><span>Paid Ads</span><span>Branding</span><span>SEO</span>
+    <span>Web Design</span><span>Social Media</span><span>Content Creation</span><span>Custom systems</span><span>E-Commerce Solutions</span><span>Maintenance & Optimization</span>
+    <span>Web Design</span><span>Social Media</span><span>Content Creation</span><span>Custom systems</span><span>E-Commerce Solutions</span><span>Maintenance & Optimization</span>
   </div>
 </div>
 
@@ -1035,7 +1161,7 @@
     <div class="section-head center reveal">
       <div class="eyebrow">Web Development Pricing</div>
       <h2>Website packages, plainly priced</h2>
-      <p>These packages cover website design &amp; development only — social media, ads, and content are quoted separately based on scope. Placeholder pricing for now, swap in your real rates.</p>
+      <p>These packages cover website design &amp; development only — social media, ads, and content are quoted separately based on scope.</p>
     </div>
     <div class="pricing-grid">
 
@@ -1096,7 +1222,7 @@
     <h2 class="reveal reveal-delay-1">Ready to unleash your brand?</h2>
     <p class="reveal reveal-delay-2">Tell us where you want to go. We'll bring the fire.</p>
     <div class="cta-buttons reveal reveal-delay-3">
-      <a href="mailto:hello@lygen.agency" class="btn btn-white">Email Us</a>
+      <a href="mailto:lygenmedia.agency" class="btn btn-white">Email Us</a>
       <a href="#" class="btn btn-outline-light">Book a Free Strategy Call</a>
     </div>
     </div>
@@ -1123,7 +1249,7 @@
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
-          <a href="mailto:hello@lygen.agency">hello@lygen.agency</a>
+          <a href="mailto:lygenmedia.agency">lygenmedia.agency</a>
           <a href="#contact">Start a Project</a>
         </div>
       </div>
@@ -1140,6 +1266,56 @@
 </footer>
 
 <script>
+  // ===== PRELOADER =====
+  // Locks scroll and shows the animated splash until the first section's background
+  // video is ready to play (or a max timeout passes), with a minimum display time
+  // so the animation always gets to play through instead of flashing on fast connections.
+  document.body.style.overflow = 'hidden';
+  (function(){
+    const preloader = document.getElementById('preloader');
+    const heroVid = document.getElementById('logoRevealVideo');
+    const minTime = 2400;
+    const maxTime = 5200;
+    const start = performance.now();
+    let videoReady = false;
+
+    if (heroVid) {
+      heroVid.addEventListener('canplay', () => { videoReady = true; }, { once: true });
+      heroVid.addEventListener('error', () => { videoReady = true; }, { once: true });
+    } else {
+      videoReady = true;
+    }
+
+    function hidePreloader() {
+      document.body.style.overflow = '';
+      preloader.classList.add('is-done');
+      setTimeout(() => { preloader.style.display = 'none'; }, 750);
+    }
+
+    function tick() {
+      const elapsed = performance.now() - start;
+      const readyEnough = videoReady || elapsed >= maxTime;
+      if (readyEnough && elapsed >= minTime) {
+        hidePreloader();
+      } else {
+        requestAnimationFrame(tick);
+      }
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  // Fall back to the animated letters if logo.png hasn't been added yet
+  (function(){
+    const img = document.getElementById('preloaderLogoImg');
+    const letters = document.getElementById('preloaderLetters');
+    if (img && letters) {
+      img.addEventListener('error', () => {
+        img.style.display = 'none';
+        letters.style.display = 'flex';
+      });
+    }
+  })();
+
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
