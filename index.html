@@ -364,6 +364,7 @@
     box-shadow:0 45px 90px -20px rgba(2,6,20,0.65);
     color:var(--white);
     will-change:transform;
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
   }
   .stack-card::before{
     content:''; position:absolute; inset:0; border-radius:28px; padding:1.5px; z-index:3; pointer-events:none;
@@ -411,6 +412,7 @@
     background:rgba(10,14,26,0.45); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
     border-top:1px solid rgba(255,255,255,0.22);
     overflow-y:auto;
+    transform:translateZ(0); will-change:transform;
   }
   .stack-card-body::after{
     content:''; position:absolute; top:0; left:0; right:0; height:1px;
@@ -938,7 +940,7 @@
           <source src="service-web.mp4" type="video/mp4">
         </video>
         <!-- Drop a graphic next to this HTML file named service-web.jpg (design the "Web Design & Development" title into the graphic itself) -->
-        <img src="service-web.jpg" alt="Web Design & Development" class="stack-img">
+        <img src="service-web.jpg" alt="Web Design & Development" class="stack-img" loading="lazy" decoding="async">
         <div class="stack-card-placeholder">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>
           <p>service-web.jpg</p>
@@ -958,7 +960,7 @@
           <source src="service-social.mp4" type="video/mp4">
         </video>
         <!-- Drop a graphic next to this HTML file named service-social.jpg -->
-        <img src="service-social.jpg" alt="Social Media Management" class="stack-img">
+        <img src="service-social.jpg" alt="Social Media Management" class="stack-img" loading="lazy" decoding="async">
         <div class="stack-card-placeholder">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4V7l-3 4H5a2 2 0 0 0-2 2z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
           <p>service-social.jpg</p>
@@ -978,7 +980,7 @@
           <source src="service-content.mp4" type="video/mp4">
         </video>
         <!-- Drop a graphic next to this HTML file named service-content.jpg -->
-        <img src="service-content.jpg" alt="Content Creation" class="stack-img">
+        <img src="service-content.jpg" alt="Content Creation" class="stack-img" loading="lazy" decoding="async">
         <div class="stack-card-placeholder">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M17 10l4-3v10l-4-3"/></svg>
           <p>service-content.jpg</p>
@@ -998,7 +1000,7 @@
           <source src="service-ads.mp4" type="video/mp4">
         </video>
         <!-- Drop a graphic next to this HTML file named service-ads.jpg -->
-        <img src="service-custom.jpg" alt="Paid Advertising" class="stack-img">
+        <img src="service-custom.jpg" alt="Paid Advertising" class="stack-img" loading="lazy" decoding="async">
         <div class="stack-card-placeholder">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V9"/><path d="M11 19V5"/><path d="M18 19v-7"/></svg>
           <p>service-ads.jpg</p>
@@ -1018,7 +1020,7 @@
           <source src="service-branding.mp4" type="video/mp4">
         </video>
         <!-- Drop a graphic next to this HTML file named service-branding.jpg -->
-        <img src="service-maintain.jpg" alt="Branding & Identity" class="stack-img">
+        <img src="service-maintain.jpg" alt="Branding & Identity" class="stack-img" loading="lazy" decoding="async">
         <div class="stack-card-placeholder">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18"/></svg>
           <p>service-branding.jpg</p>
@@ -1038,7 +1040,7 @@
           <source src="service-seo.mp4" type="video/mp4">
         </video>
         <!-- Drop a graphic next to this HTML file named service-seo.jpg -->
-        <img src="service-ecom.jpg" alt="E-commerce & Solutions" class="stack-img">
+        <img src="service-ecom.jpg" alt="E-commerce & Solutions" class="stack-img" loading="lazy" decoding="async">
         <div class="stack-card-placeholder">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
           <p>service-seo.jpg</p>
@@ -1402,6 +1404,7 @@
   if (stackWrap && stackCards.length) {
     const numTransitions = stackCards.length - 1; // card 0 has no arrival animation, it's already in place
     let stackTicking = false;
+    const lastSlideY = new Array(stackCards.length).fill(null); // cache to avoid redundant style writes
     function updateStack() {
       const rect = stackWrap.getBoundingClientRect();
       const vh = window.innerHeight;
@@ -1410,16 +1413,21 @@
         ? Math.min(Math.max(-rect.top / scrollableDistance, 0), 1)
         : 0;
       stackCards.forEach((card, i) => {
+        let slideY;
         if (i === 0) {
-          card.style.transform = 'translate(-50%,-50%) translateY(0%)';
-          return;
+          slideY = 0;
+        } else {
+          const windowStart = (i - 1) / numTransitions;
+          const windowEnd = i / numTransitions;
+          let local = (progress - windowStart) / (windowEnd - windowStart);
+          local = Math.min(Math.max(local, 0), 1);
+          slideY = (1 - local) * 100; // 100% (hidden below) -> 0% (settled in place)
         }
-        const windowStart = (i - 1) / numTransitions;
-        const windowEnd = i / numTransitions;
-        let local = (progress - windowStart) / (windowEnd - windowStart);
-        local = Math.min(Math.max(local, 0), 1);
-        const slideY = (1 - local) * 100; // 100% (hidden below) -> 0% (settled in place)
-        card.style.transform = `translate(-50%,-50%) translateY(${slideY}%)`;
+        // Only touch the DOM if the value actually changed (avoids repainting settled/hidden cards every frame)
+        if (lastSlideY[i] === null || Math.abs(lastSlideY[i] - slideY) > 0.05) {
+          card.style.transform = `translate(-50%,-50%) translateY(${slideY}%)`;
+          lastSlideY[i] = slideY;
+        }
       });
       stackTicking = false;
     }
