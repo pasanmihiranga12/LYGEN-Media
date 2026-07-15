@@ -620,9 +620,26 @@
   @media (max-width:900px){
     .nav-links{ display:none; }
     .burger{ display:block; }
-    .stack-card{ height:70vh; max-height:560px; width:calc(100% - 16px); }
-    .stack-card-body{ padding:20px 24px; }
-    .stack-wrap{ height:500vh; }
+
+    /* Simplified mobile version of the service cards: no scroll-pin, no blur, no continuous
+       animations - just normal stacked cards that fade up once as you scroll to them. */
+    .stack-wrap{ height:auto; margin-top:0; padding:8px 20px 20px; display:flex; flex-direction:column; gap:22px; }
+    .stack-pin{ position:static; height:auto; display:contents; }
+    .stack-card{
+      position:relative !important; left:auto !important; top:auto !important;
+      width:100% !important; height:auto !important; max-height:none !important; margin:0 !important;
+      opacity:0; transform:translateY(28px) !important;
+      transition:opacity .6s ease, transform .6s cubic-bezier(.16,.8,.3,1);
+    }
+    .stack-card.mobile-in-view{ opacity:1 !important; transform:translateY(0) !important; }
+    .stack-glow{ display:none; }
+    .stack-card-media::after{ animation:none !important; display:none; }
+    .stack-card-body{
+      padding:20px 24px;
+      backdrop-filter:none !important; -webkit-backdrop-filter:none !important;
+      background:rgba(10,14,26,0.94) !important;
+    }
+
     .process-grid{ grid-template-columns:1fr 1fr; gap:24px; }
     .pricing-grid{ grid-template-columns:1fr; max-width:440px; }
     .price-card.featured{ transform:none; order:-1; }
@@ -1401,7 +1418,10 @@
   // below - directly scrubbed to scroll position - to gradually cover the one before it.
   const stackWrap = document.querySelector('.stack-wrap');
   const stackCards = Array.from(document.querySelectorAll('.stack-card'));
-  if (stackWrap && stackCards.length) {
+  const isMobileStack = window.matchMedia('(max-width:900px)').matches;
+
+  if (stackWrap && stackCards.length && !isMobileStack) {
+    // Desktop: full pinned scroll-scrub effect (unchanged)
     const numTransitions = stackCards.length - 1; // card 0 has no arrival animation, it's already in place
     let stackTicking = false;
     const lastSlideY = new Array(stackCards.length).fill(null); // cache to avoid redundant style writes
@@ -1439,6 +1459,17 @@
     }, { passive: true });
     window.addEventListener('resize', updateStack, { passive: true });
     updateStack();
+  } else if (stackCards.length && isMobileStack) {
+    // Mobile: cheap one-time fade-up reveal instead of scroll-jacking - no per-frame JS at all
+    const mobileStackObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('mobile-in-view');
+          mobileStackObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    stackCards.forEach((card) => mobileStackObserver.observe(card));
   }
 
   // Logo reveal: pinned section where the heading fades out and the logo zooms in,
