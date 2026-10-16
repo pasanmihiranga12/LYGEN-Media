@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don Sherman — Case Study | LYGEN Media Agency</title>
+<meta name="description" content="How LYGEN Media Agency built the website for Don Sherman, 'The Singing Chef' — a Sri Lankan chef, TV personality, and performer with a 38+ year career across food and music.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://lygenexlabs.com/case-study-donsherman.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta name="theme-color" content="#07060a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Space+Grotesk:wght@500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Mona Sans Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+    src: url(https://cdn.jsdelivr.net/gh/github/mona-sans@main/fonts/webfonts/MonaSansVF%5Bwdth%2Cwght%2Copsz%2Cital%5D.woff2) format('woff2-variations'),
+         url(https://cdn.jsdelivr.net/fontsource/fonts/mona-sans:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  }
+</style>
+<style>
+  :root{
+    --white:#ffffff;
+    --black:#07060a;
+    --bg:#07060a;
+    --cream:#f1f1f1;
+    --gold:#bdbdbd;
+    --gold-deep:#666666;
+    --ink:#111111;
+    --gradient: linear-gradient(100deg, #5f5f5f 0%, #bdbdbd 40%, #ffffff 62%, #bdbdbd 100%);
+    --font-main: 'Mona Sans Variable', 'Mona Sans', 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --font-accent: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    --container: 1240px;
+  }
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:var(--font-main); font-weight:300; font-variation-settings:'wght' 300;
+    background:var(--bg); color:var(--cream); overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  img,svg,video{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:var(--container); margin:0 auto; padding:0 32px; }
+
+  .eyebrow{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--font-accent); font-size:12px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--white); margin-bottom:20px;
+  }
+  .eyebrow::before{ content:''; width:34px; height:3px; border-radius:2px; background:#fff; }
+
+  .reveal{ opacity:0; transform:translateY(30px) scale(.97); transition:opacity .6s ease, transform .7s cubic-bezier(.34,1.56,.64,1); }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1.in-view{ transition-delay:.12s; }
+  .reveal-delay-2.in-view{ transition-delay:.24s; }
+
+  /* ================= NAVBAR (same as main site) ================= */
+  .navbar{ position:fixed; top:0; left:0; right:0; z-index:100; padding:16px 20px 0; transition:padding .35s ease; }
+  .navbar.scrolled{ padding:10px 20px 0; }
+  .navbar .nav-inner{
+    max-width:1180px; margin:0 auto; background:rgba(8,8,8,0.72);
+    backdrop-filter:blur(22px) saturate(180%); -webkit-backdrop-filter:blur(22px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.14); border-radius:20px;
+    box-shadow:0 16px 40px -16px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+    padding:14px 26px; transition:padding .35s ease, background .35s ease, border-radius .35s ease;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .navbar.scrolled .nav-inner{ padding:10px 22px; border-radius:16px; background:rgba(4,4,4,0.88); }
+  .navbar .btn-primary{ background:#fff; background-image:none; color:#000; box-shadow:0 8px 20px -8px rgba(255,255,255,0.35); }
+  .navbar .btn-primary:hover{ background:#fff; box-shadow:0 14px 28px -8px rgba(255,255,255,0.5); }
+  .logo{ display:flex; flex-direction:column; line-height:1; }
+  .logo-img{ height:38px; width:auto; }
+  .logo-fallback{ display:flex; flex-direction:column; line-height:1; }
+  .logo-text{ font-family:var(--font-accent); font-size:24px; font-weight:700; letter-spacing:.01em; color:var(--white); }
+  .logo-sub{ font-size:9px; font-weight:700; letter-spacing:.3em; color:rgba(255,255,255,0.75); margin-top:4px; }
+  .nav-links{ display:flex; align-items:center; gap:38px; }
+  .nav-links a{ font-size:14.5px; font-weight:400; color:rgba(255,255,255,0.8); position:relative; padding:4px 0; transition:color .25s ease; }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--white); transition:width .3s ease; }
+  .nav-links a:hover{ color:var(--white); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-right{ display:flex; align-items:center; gap:24px; }
+
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-accent), sans-serif; font-weight:700; font-size:14.5px; letter-spacing:.01em; padding:14px 26px; border-radius:100px; transition:transform .3s cubic-bezier(.16,.8,.3,1), box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease; white-space:nowrap; }
+  .btn-primary{ background:var(--gradient); background-size:220% 100%; background-position:0% 50%; color:var(--black); box-shadow:0 8px 24px -8px rgba(255,255,255,0.35); transition:transform .3s cubic-bezier(.16,.8,.3,1), box-shadow .3s ease, background-position .6s ease; }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 34px -8px rgba(255,255,255,0.5); background-position:100% 50%; }
+  .btn-sm{ padding:11px 20px; font-size:13.5px; }
+  .btn-outline-light{ background:rgba(255,255,255,0.08); color:var(--white); border:1.5px solid rgba(255,255,255,0.35); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+  .btn-outline-light:hover{ border-color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.18); transform:translateY(-3px); }
+
+  .burger{ display:none; width:26px; height:20px; position:relative; }
+  .burger span{ position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition:.3s ease; }
+  .burger span:nth-child(1){ top:0; }
+  .burger span:nth-child(2){ top:9px; }
+  .burger span:nth-child(3){ top:18px; }
+  .burger.open span:nth-child(1){ transform:translateY(9px) rotate(45deg); }
+  .burger.open span:nth-child(2){ opacity:0; }
+  .burger.open span:nth-child(3){ transform:translateY(-9px) rotate(-45deg); }
+  .mobile-menu{ position:fixed; inset:0; z-index:90; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; transform:translateY(-100%); transition:transform .45s cubic-bezier(.76,0,.24,1); }
+  .mobile-menu.open{ transform:translateY(0); }
+  .mobile-menu a{ font-family:var(--font-accent); font-size:28px; font-weight:600; color:var(--cream); }
+  .mobile-menu .mobile-menu-cta{ font-family:var(--font-main); font-size:15px; font-weight:700; padding:15px 32px; margin-top:6px; }
+
+  /* ================= CASE STUDY HERO ================= */
+  .case-hero{ padding:180px 0 70px; background:var(--black); position:relative; overflow:hidden; }
+  .case-hero-blob{ position:absolute; width:480px; height:480px; border-radius:50%; background:#fff; opacity:.06; filter:blur(100px); top:-200px; right:-140px; pointer-events:none; }
+  .case-hero .wrap{ position:relative; z-index:1; }
+  .case-hero h1{
+    font-family:'Mona Sans Variable', 'Mona Sans', sans-serif; font-weight:900; font-variation-settings:'wght' 900;
+    font-size:clamp(44px,7.6vw,94px);
+    line-height:1.0; letter-spacing:-.025em; color:var(--white); margin-bottom:22px; max-width:900px;
+  }
+  .case-hero p{ font-size:16.5px; line-height:1.7; color:rgba(242,233,216,0.7); max-width:560px; font-weight:300; margin-bottom:34px; }
+  .case-hero-actions{ display:flex; flex-wrap:wrap; gap:14px; }
+
+  .case-meta{ border-top:1px solid rgba(255,255,255,0.1); margin-top:56px; padding-top:28px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .case-meta-item h4{ font-family:var(--font-accent); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:8px; }
+  .case-meta-item p{ font-size:14.5px; font-weight:600; color:var(--white); }
+  .case-meta-item a{ font-size:14.5px; font-weight:600; color:var(--white); transition:color .25s ease; }
+  .case-meta-item a:hover{ color:rgba(255,255,255,0.7); }
+
+  /* ================= CASE STUDY IMAGE ================= */
+  .case-image{
+    position:relative; aspect-ratio:16/10; border-radius:24px; overflow:hidden; margin:0 auto 10px;
+    background:linear-gradient(160deg,#2c2c2c,#0a0a0a); border:1px solid rgba(255,255,255,0.1);
+  }
+  .case-image img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .case-image-placeholder{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; color:rgba(255,255,255,0.22); }
+
+  /* ================= CASE STUDY BODY ================= */
+  .case-body{ padding:90px 0 40px; }
+  .case-row{ display:grid; grid-template-columns:0.65fr 1.35fr; gap:60px; max-width:1020px; margin:0 auto; padding:56px 0; border-top:1px solid rgba(255,255,255,0.08); }
+  .case-row:first-of-type{ border-top:none; }
+  .case-row h2{
+    font-family:'Mona Sans Variable', 'Mona Sans', sans-serif; font-weight:900; font-variation-settings:'wght' 900;
+    font-size:clamp(26px,3vw,36px);
+    color:var(--white); letter-spacing:-.015em; line-height:1.1;
+  }
+  .case-row p{ font-size:15.5px; line-height:1.75; color:rgba(242,233,216,0.72); font-weight:300; margin-bottom:16px; }
+  .case-row p:last-child{ margin-bottom:0; }
+
+  .case-highlights{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .case-highlight{
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:18px; padding:26px 24px;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .case-highlight:hover{ transform:translateY(-5px); border-color:rgba(255,255,255,0.28); }
+  .case-highlight h3{ font-family:var(--font-accent); font-size:15.5px; font-weight:700; color:var(--white); margin-bottom:10px; }
+  .case-highlight p{ font-size:13.5px; line-height:1.6; color:rgba(242,233,216,0.65); font-weight:300; }
+
+  .case-back-link{ display:inline-flex; align-items:center; gap:8px; font-family:var(--font-accent); font-size:14px; font-weight:700; color:rgba(255,255,255,0.7); margin-top:10px; transition:gap .25s ease, color .25s ease; }
+  .case-back-link:hover{ gap:12px; color:#fff; }
+
+  /* ================= MARQUEE (same as main site) ================= */
+  .marquee-band{
+    overflow:hidden; padding:70px 0; position:relative;
+    background:radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0) 0 0/28px 28px, transparent;
+  }
+  .marquee-band::before, .marquee-band::after{
+    content:''; position:absolute; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.22) 50%, transparent);
+  }
+  .marquee-band::before{ top:0; }
+  .marquee-band::after{ bottom:0; }
+  .marquee-track{ display:flex; white-space:nowrap; width:max-content; animation:marqueeScroll 28s linear infinite; }
+  .marquee-track span{
+    font-family:var(--font-main); font-weight:800; color:var(--white);
+    font-size:clamp(64px,13vw,180px); letter-spacing:-.03em; line-height:1; padding:0 36px; display:inline-flex; align-items:center; flex-shrink:0;
+  }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ================= FOOTER (same as main site) ================= */
+  footer{ background:var(--black); color:var(--white); padding:28px 0 28px; }
+  .footer-wide{ max-width:none; margin:0; padding:0 18px; }
+  .footer-panel{
+    position:relative; overflow:hidden; border-radius:28px; padding:56px 56px 36px;
+    background:linear-gradient(165deg, rgba(255,255,255,0.055), rgba(255,255,255,0.015));
+    border:1px solid rgba(255,255,255,0.12);
+  }
+  .footer-panel::before{ content:''; position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(ellipse 55% 65% at 12% 0%, rgba(255,255,255,0.08), transparent 65%); }
+  .footer-top{ position:relative; z-index:1; display:flex; justify-content:space-between; gap:60px; flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .footer-brand{ max-width:300px; }
+  .footer-brand .logo-text{ color:var(--white); }
+  .footer-brand p{ font-size:14px; color:rgba(255,255,255,0.55); margin-top:14px; line-height:1.6; font-weight:300; }
+  .footer-email{ display:inline-flex; align-items:center; gap:7px; margin-top:16px; font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.8); transition:color .25s ease; }
+  .footer-email:hover{ color:#fff; }
+  .footer-cols{ position:relative; z-index:1; display:flex; gap:64px; flex-wrap:wrap; }
+  .footer-col h4{ font-family:var(--font-accent); font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:18px; }
+  .footer-col a{ display:flex; align-items:center; gap:7px; font-size:14.5px; font-weight:600; color:rgba(255,255,255,0.78); margin-bottom:13px; transition:color .25s ease, gap .25s ease; width:fit-content; }
+  .footer-col a:last-child{ margin-bottom:0; }
+  .footer-col a svg{ opacity:.5; transition:opacity .25s ease, transform .25s ease; }
+  .footer-col a:hover{ color:#fff; gap:10px; }
+  .footer-col a:hover svg{ opacity:1; transform:translate(1px,-1px); }
+  .footer-bottom{ position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; padding-top:22px; flex-wrap:wrap; gap:12px; }
+  .footer-bottom p{ font-size:12.5px; color:rgba(255,255,255,0.45); font-weight:300; }
+  .socials{ display:flex; gap:16px; }
+  .socials a{ width:62px; height:62px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.3); background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; transition:.3s ease; color:rgba(255,255,255,0.9); }
+  .socials a svg{ width:26px; height:26px; }
+  .socials a:hover{ border-color:#fff; background:#fff; color:#000; transform:translateY(-3px); }
+
+  @media (max-width:900px){
+    .nav-links{ display:none; }
+    .burger{ display:block; }
+    .case-meta{ grid-template-columns:1fr 1fr; }
+    .case-row{ grid-template-columns:1fr; gap:20px; }
+    .case-highlights{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:600px){
+    .wrap{ padding:0 22px; }
+    .navbar{ padding:12px 12px 0; }
+    .navbar .nav-inner{ padding:10px 14px; border-radius:16px; }
+    .logo-img{ height:30px; }
+    .nav-right{ gap:14px; }
+    .nav-right .btn-primary{ display:none; }
+    .case-hero{ padding:150px 0 50px; }
+    .case-meta{ grid-template-columns:1fr 1fr; }
+    .case-highlights{ grid-template-columns:1fr; }
+    .footer-panel{ padding:34px 24px 26px; border-radius:22px; }
+    .footer-top{ gap:36px; }
+    .footer-cols{ gap:40px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ transition:none; opacity:1; transform:none; }
+    .marquee-track{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar" id="navbar" aria-label="Main navigation">
+  <div class="wrap nav-inner">
+    <a href="index.html#top" class="logo">
+      <img src="logo.png" alt="LYGEN Media Agency" class="logo-img" id="navLogoImg">
+      <div class="logo-fallback" id="navLogoFallback" style="display:none;">
+        <span class="logo-text">LY<span>G</span>EN</span>
+        <span class="logo-sub">MEDIA AGENCY</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#portfolio">Work</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="index.html#contact" class="btn btn-primary btn-sm">Start Your Project</a>
+      <div class="burger" id="burger" role="button" tabindex="0" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#services">Services</a>
+  <a href="index.html#process">Process</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#portfolio">Work</a>
+  <a href="index.html#pricing">Pricing</a>
+  <a href="index.html#faq">FAQ</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="index.html#contact" class="btn btn-primary mobile-menu-cta">Start Your Project</a>
+</div>
+
+<!-- ================= CASE STUDY HERO ================= -->
+<section class="case-hero">
+  <div class="case-hero-blob"></div>
+  <div class="wrap">
+    <div class="eyebrow reveal">Case Study</div>
+    <h1 class="reveal reveal-delay-1">Don Sherman — The Singing Chef</h1>
+    <p class="reveal reveal-delay-2">A website for a 38-year career that lives in two worlds at once — chef and entertainer — built as one cinematic, single-page story instead of two competing profiles.</p>
+    <div class="case-hero-actions reveal reveal-delay-2">
+      <a href="https://donsherman.com.au" target="_blank" rel="noopener" class="btn btn-primary">
+        Visit Website
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+      </a>
+      <a href="index.html#portfolio" class="btn btn-outline-light">Back to Work</a>
+    </div>
+
+    <div class="case-meta">
+      <div class="case-meta-item">
+        <h4>Client</h4>
+        <p>Don Sherman</p>
+      </div>
+      <div class="case-meta-item">
+        <h4>Service</h4>
+        <p>Website Design &amp; Development</p>
+      </div>
+      <div class="case-meta-item">
+        <h4>Industry</h4>
+        <p>Culinary &amp; Entertainment</p>
+      </div>
+      <div class="case-meta-item">
+        <h4>Website</h4>
+        <a href="https://donsherman.com.au" target="_blank" rel="noopener">donsherman.com.au</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="case-image reveal">
+    <img src="donsherman-thumb.png" alt="Don Sherman website preview" id="caseThumbImg">
+    <div class="case-image-placeholder" id="caseThumbPlaceholder">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CASE STUDY BODY ================= -->
+<section class="case-body">
+  <div class="wrap">
+
+    <div class="case-row reveal">
+      <h2>Overview</h2>
+      <div>
+        <p>Don Sherman is a Sri Lankan chef, TV personality, and performer known around the world as "The Singing Chef." Over a 38-plus year career he's worked as a chef, restaurant owner, and television host, hosted and appeared on national television for over two decades, and has been a brand ambassador for international names including Philips, Kenwood, and Panasonic. Alongside the kitchen, he writes and performs his own music and hosts and MCs live events in English, Sinhala, and Hindi.</p>
+        <p>LYGEN designed and built his personal website end-to-end — the single place online that now represents both sides of his career, for an audience that spans fans, event organisers, and brand partners.</p>
+      </div>
+    </div>
+
+    <div class="case-row reveal">
+      <h2>The Brief</h2>
+      <div>
+        <p>Don's story spans television, live performance, music, and hospitality — several different worlds that had never lived in one coherent place online. Before this site, that story was scattered: clips on social media, press mentions, old show appearances, nothing pulling it together.</p>
+        <p>The brief was a site that could hold all of it without feeling like a resume — cinematic enough for a TV personality, structured enough to still get event, brand, and media enquiries booked through it.</p>
+      </div>
+    </div>
+
+    <div class="case-row reveal">
+      <h2>Our Approach</h2>
+      <div>
+        <p>Rather than splitting "chef" and "entertainer" into two separate pages, we treated them as one character told in one continuous scroll — a numbered single-page journey a visitor moves through in order, instead of a traditional menu-and-subpages structure.</p>
+        <p>The visual language leans cinematic on purpose: full-bleed photography, a dark backdrop that lets his own imagery carry the page, and a restrained typographic system — a bold display face for structure, with a lighter italic accent reserved for moments that needed a touch of showmanship, like the name of the site itself.</p>
+      </div>
+    </div>
+
+    <div class="case-row reveal">
+      <h2>What We Built</h2>
+      <div class="case-highlights">
+        <div class="case-highlight">
+          <h3>Cinematic hero</h3>
+          <p>A full-bleed opening built around his own photography and presence — chef's coat, medals, stage energy — setting the tone in the first few seconds.</p>
+        </div>
+        <div class="case-highlight">
+          <h3>One story, two identities</h3>
+          <p>A single-page journey structured so visitors can explore either side of his career — food or performance — without the site feeling split in two.</p>
+        </div>
+        <div class="case-highlight">
+          <h3>Numbered wayfinding</h3>
+          <p>A numbered section index that runs the length of the page, so a long single-page site never feels like it's lost the visitor.</p>
+        </div>
+        <div class="case-highlight">
+          <h3>Media &amp; recognition</h3>
+          <p>A dedicated space for his television presence and brand ambassador work, built to read as credibility, not a list of logos.</p>
+        </div>
+        <div class="case-highlight">
+          <h3>Music, on its own terms</h3>
+          <p>His original music sits alongside the culinary work instead of being buried — its own section, not a footnote.</p>
+        </div>
+        <div class="case-highlight">
+          <h3>Direct booking path</h3>
+          <p>A clear route for event, brand, and media enquiries to reach him directly, instead of getting lost across scattered social profiles.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-row reveal">
+      <h2>Built to Perform</h2>
+      <div>
+        <p>A site this photography- and video-led can get heavy fast, so it was built mobile-first from the start — the same cinematic feel has to hold up on a phone on a slow connection, not just on a desktop demo. Media is loaded deliberately rather than all at once, so the page stays quick even with a career's worth of visuals behind it.</p>
+      </div>
+    </div>
+
+    <div class="case-row reveal">
+      <h2>Outcome</h2>
+      <div>
+        <p>Don now has one site that ties his television career, music, and culinary work together in a single, cohesive presence — built to represent him properly whether a visitor finds him through a cooking show, a brand partnership, or an event booking enquiry.</p>
+        <a href="index.html#portfolio" class="case-back-link">&larr; Back to all work</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= MARQUEE DIVIDER ================= -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span>
+    <span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span><span>Let's Talk</span>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-wide">
+    <div class="footer-panel">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LYGEN Media Agency" class="logo-img" id="footerLogoImg">
+          <div class="logo-fallback" id="footerLogoFallback" style="display:none;">
+            <span class="logo-text">LY<span>G</span>EN</span>
+          </div>
+          <p>Websites & social, built with bite. A media agency for brands ready to stop blending in.</p>
+          <a href="mailto:media@lygenexlabs.com" class="footer-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            media@lygenexlabs.com
+          </a>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Site Map</h4>
+            <a href="index.html#top">Home<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+            <a href="index.html#services">Services<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+            <a href="index.html#portfolio">Work<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+            <a href="index.html#pricing">Pricing<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+            <a href="index.html#contact">Contact Us<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="privacy-policy.html">Privacy Policy<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+            <a href="terms-of-service.html">Terms of Service<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 LYGEN Media Agency. All rights reserved.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/lygenmedia.agency?igsh=dnFhdWduZWxsbXhw&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/share/1Hyh2a9sRt/?mibextid=wwXIfr" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.56c0-.86.24-1.44 1.47-1.44h1.57V4.47A21 21 0 0 0 14.1 4.3c-2.15 0-3.62 1.31-3.62 3.72v2.42H7.92v2.96h2.56V21h3.02z"/></svg></a>
+          <a href="https://wa.me/94711373969" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.04 2.1c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.33 4.95L2 22l5.2-1.37a9.9 9.9 0 0 0 4.84 1.23h.01c5.46 0 9.9-4.44 9.9-9.9s-4.44-9.86-9.91-9.86zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.1.81.83-3.02-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.19-8.26 8.19zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.97-.14.17-.3.19-.55.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.41 1.02 2.58.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  function toggleMobileMenu() {
+    const isOpen = burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  }
+  burger.addEventListener('click', toggleMobileMenu);
+  burger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMobileMenu(); }
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Open menu');
+  }));
+
+  // Logo fallback if logo.png hasn't been added yet
+  const navLogoImg = document.getElementById('navLogoImg');
+  const navLogoFallback = document.getElementById('navLogoFallback');
+  (function(){
+    function showFallback(){ navLogoImg.style.display = 'none'; navLogoFallback.style.display = 'flex'; }
+    if (navLogoImg.complete && navLogoImg.naturalWidth === 0) showFallback();
+    else navLogoImg.addEventListener('error', showFallback);
+  })();
+  const footerLogoImg = document.getElementById('footerLogoImg');
+  const footerLogoFallback = document.getElementById('footerLogoFallback');
+  (function(){
+    function showFallback(){ footerLogoImg.style.display = 'none'; footerLogoFallback.style.display = 'flex'; }
+    if (footerLogoImg.complete && footerLogoImg.naturalWidth === 0) showFallback();
+    else footerLogoImg.addEventListener('error', showFallback);
+  })();
+
+  // Show placeholder if donsherman-thumb.png hasn't been added yet
+  const caseThumbImg = document.getElementById('caseThumbImg');
+  const caseThumbPlaceholder = document.getElementById('caseThumbPlaceholder');
+  (function(){
+    function showFallback(){ caseThumbImg.style.display = 'none'; caseThumbPlaceholder.style.display = 'flex'; }
+    if (caseThumbImg.complete && caseThumbImg.naturalWidth === 0) showFallback();
+    else caseThumbImg.addEventListener('error', showFallback);
+  })();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
